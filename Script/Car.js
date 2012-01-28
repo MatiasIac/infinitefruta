@@ -11,7 +11,7 @@ function Car(tileGrid) {
 	this.tileY = 0;
 	turnCounter = 0;
 	this.desiredAngle = Math.PI;
-	this.turningDirection = -1; //-1: anticlockwise, 1: clockwise
+	this.turningDirection = 1; //-1: anticlockwise, 1: clockwise
 	this.angle = 0;
 	
 	this.update = function(delta) {

@@ -32,9 +32,11 @@
 		for (i = 0; i < sizeX; i++) {
 			tileRow = new Array();
 			for (j = 0; j < sizeY; j++) {
-				var typeNumber = (Math.round(Math.random() * 6) + 1);
+				//var typeNumber = (Math.round(Math.random() * 6) + 1);
+				var typeNumber = 1; //Line to test tiles
+				
 				var ttype = ar.tiles[typeNumber];
-				//var selectedType = ttype.availableTypes[Math.round(Math.random() * ttype.availableTypes.length - 1)];
+				var selectedType = ttype.availableTypes[Math.round(Math.random() * ttype.availableTypes.length - 1)];
 				tileRow.push({tileType: ttype, state: 0 });
 			}
 			tiles.push(tileRow);
@@ -42,12 +44,13 @@
 		car = new Car(self);
 		car.tileXPos = 50;
 		car.tileYPos = 50;
-		car.tileX = 0;
-		car.tileY = 3;
+		car.tileX = 2;
+		car.tileY = 2;
+		car.angle = Math.PI;
 		car.moving = true;
 		//car.turning = true;
 		
-		createBlanks(3)
+		//createBlanks(3)
 		var c = document.getElementById("canvas");
 		c.addEventListener("mousedown", getMouseDown);
 		c.addEventListener("mouseup", getMouseUp);
@@ -225,9 +228,11 @@
 	
 	function southEastTurn(car) {
 		car.turning = true;
-		if (car.angle == Math.PI) {
+		if (car.angle == Math.PI) { //East
+			car.turningDirection = -1; 
 			car.desiredAngle = Math.PI / 2;
-		} else if (car.angle == Math.PI * 2/3) {
+		} else if (car.angle == Math.PI * 3/2) { //South
+			car.turningDirection = 1;
 			car.desiredAngle = 0;
 		}
 	}
@@ -236,7 +241,7 @@
 		car.turning = true;
 		if (car.angle == 0) {
 			car.desiredAngle = Math.PI / 2;
-		} else if (car.angle == Math.PI * 2/3) {
+		} else if (car.angle == Math.PI * 3/2) {
 			car.desiredAngle = 0;
 		}
 	}
@@ -248,7 +253,7 @@
 		car.turning = true;
 		if (car.angle == 0) {
 			car.desiredAngle = Math.PI / 2;
-		} else if (car.angle == Math.PI * 2/3) {
+		} else if (car.angle == Math.PI * 3/2) {
 			car.desiredAngle = 0;
 		}
 	}
