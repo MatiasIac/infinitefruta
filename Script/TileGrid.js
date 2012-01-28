@@ -20,7 +20,7 @@
 	var ar = {"tiles": [ 
 			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: stopCar, availableTypes: [20, 20]},
 			 { selectedType: 1, canNorth: false, canSouth: true, canWest: false, canEast: true, onCenter: southEastTurn, availableTypes: [0, 7]},
-			 { selectedType: 2, canNorth: false, canSouth: false, canWest: true, canEast:true, onCenter: eastWestStraight, availableTypes: [1, 9]},
+			 { selectedType: 2, canNorth: false, canSouth: false, canWest: true, canEast: true, onCenter: eastWestStraight, availableTypes: [1, 9]},
 			 { selectedType: 3, canNorth: true, canSouth: true, canWest: false, canEast: false, onCenter: northSouthStraight, availableTypes: [2, 10]},
 			 { selectedType: 4, canNorth: false, canSouth: true, canWest: true, canEast: false, onCenter: southWestTurn, availableTypes: [3, 8]},
 			 { selectedType: 5, canNorth: true, canSouth: false, canWest: false, canEast: true, onCenter: northEastTurn, availableTypes: [4, 12]},
@@ -34,7 +34,7 @@
 			tileRow = new Array();
 			for (j = 0; j < sizeY; j++) {
 				var typeNumber = (Math.round(Math.random() * 6) + 1);
-				//var typeNumber = 5; //Line to test tiles
+				//var typeNumber = 2; //Line to test tiles
 				
 				var ttype = ar.tiles[typeNumber];
 				var selectedType = ttype.availableTypes[Math.round(Math.random() * ttype.availableTypes.length - 1)];
@@ -200,38 +200,38 @@
 		}
     }
 	
+	/**
+		Acts when the car crosses boundaries between tiles
+	*/
 	this.reportCarTileChange = function(car) {
 		//Move right
 		if (car.tileXPos > 100) {
 			car.tileX++;
 			car.tileXPos -= 100;
-			if (car.tileX > sizeX - 1 || ) {
+			if (car.tileX > sizeX - 1 || !tiles[car.tileX][car.tileY].tileType.canWest) {
 				//should explode
 				car.moving = false;
 			}
-		}
-		if (car.tileXPos < 0) {
+		} else if (car.tileXPos < 0) {
 			car.tileX--;
 			car.tileXPos += 100;
 			//eval left
-			if (car.tileX < 0) {
+			if (car.tileX < 0 || !tiles[car.tileX][car.tileY].tileType.canEast) {
 				//should explode
 				car.moving = false;
 			}
-		}
-		if (car.tileYPos > 100) {
+		} else if (car.tileYPos > 100) {
 			car.tileY++;
 			car.tileYPos -= 100;
-			if (car.tileY > sizeY - 1) {
+			if (car.tileY > sizeY - 1 || !tiles[car.tileX][car.tileY].tileType.canSouth) {
 				car.moving = false;
 			}
 			//eval up
-		}
-		if (car.tileYPos < 0) {
+		} else if (car.tileYPos < 0) {
 			car.tileY--;
 			car.tileYPos += 100;
 			//eval down
-			if (car.tileY < 0) {
+			if (car.tileY < 0 || !tiles[car.tileX][car.tileY].tileType.canNorth) {
 				//should explode
 				car.moving = false;
 			}
