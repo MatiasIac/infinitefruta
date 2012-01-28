@@ -8,7 +8,7 @@
 	var car = null;
 	var tileWidth = 85;
 	var tileHeight = 85;
-	var enviroment = 0;
+	var enviroment = 1;
 	
     var tiles = new Array();  
 	
@@ -18,21 +18,21 @@
 	
 	var ar = {"tiles": [ 
 			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: stopCar, availableTypes: [20, 20]},
-			 { selectedType: 1, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [0, 7]},
-			 { selectedType: 2, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [1, 9]},
-			 { selectedType: 3, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [2, 10]},
-			 { selectedType: 4, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [3, 8]},
-			 { selectedType: 5, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [4, 12]},
+			 { selectedType: 1, canNorth: false, canSouth: true, canWest: false, canEast: true, onCenter: southEastTurn, availableTypes: [0, 7]},
+			 { selectedType: 2, canNorth: false, canSouth: false, canWest: true, canEast:true, onCenter: eastWestStraight, availableTypes: [1, 9]},
+			 { selectedType: 3, canNorth: true, canSouth: true, canWest: false, canEast: false, onCenter: northSouthStraight, availableTypes: [2, 10]},
+			 { selectedType: 4, canNorth: false, canSouth: true, canWest: true, canEast: false, onCenter: southWestTurn, availableTypes: [3, 8]},
+			 { selectedType: 5, canNorth: true, canSouth: false, canWest: false, canEast: true, onCenter: northEastTurn, availableTypes: [4, 12]},
 			 { selectedType: 6, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [5, 11]},
-			 { selectedType: 7, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [6, 13]},
-			 { selectedType: 8, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [6, 15]}
+			 { selectedType: 7, canNorth: true, canSouth: false, canWest: true, canEast: false, onCenter: northWestTurn, availableTypes: [6, 13]},
+			 //{ selectedType: 8, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [7, 15]}
 			 ]};
 	
     this.init = function () {
 		for (i = 0; i < sizeX; i++) {
 			tileRow = new Array();
 			for (j = 0; j < sizeY; j++) {
-				var typeNumber = (Math.round(Math.random() * 7) + 1);
+				var typeNumber = (Math.round(Math.random() * 6) + 1);
 				var ttype = ar.tiles[typeNumber];
 				//var selectedType = ttype.availableTypes[Math.round(Math.random() * ttype.availableTypes.length - 1)];
 				tileRow.push({tileType: ttype, state: 0 });
@@ -45,10 +45,9 @@
 		car.tileX = 0;
 		car.tileY = 3;
 		car.moving = true;
+		//car.turning = true;
 		
 		createBlanks(3)
-		
-		
 		var c = document.getElementById("canvas");
 		c.addEventListener("mousedown", getMouseDown);
 		c.addEventListener("mouseup", getMouseUp);
@@ -189,6 +188,10 @@
 			car.tileX--;
 			car.tileXPos += 100;
 			//eval left
+			if (car.tileX < 0) {
+				//should explode
+				car.moving = false;
+			}
 		}
 		if (car.tileYPos > 100) {
 			car.tileY++;
@@ -202,6 +205,10 @@
 			car.tileY--;
 			car.tileYPos += 100;
 			//eval down
+			if (car.tileY < 0) {
+				//should explode
+				car.moving = false;
+			}
 		}
 	}
 
@@ -214,5 +221,41 @@
 	
 	function stopCar(car) {
 		car.moving = false;
+	}
+	
+	function southEastTurn(car) {
+		car.turning = true;
+		if (car.angle == Math.PI) {
+			car.desiredAngle = Math.PI / 2;
+		} else if (car.angle == Math.PI * 2/3) {
+			car.desiredAngle = 0;
+		}
+	}
+	
+	function southWestTurn(car) {
+		car.turning = true;
+		if (car.angle == 0) {
+			car.desiredAngle = Math.PI / 2;
+		} else if (car.angle == Math.PI * 2/3) {
+			car.desiredAngle = 0;
+		}
+	}
+	
+	function northEastTurn(car) {
+	}
+	
+	function northWestTurn(car) {
+		car.turning = true;
+		if (car.angle == 0) {
+			car.desiredAngle = Math.PI / 2;
+		} else if (car.angle == Math.PI * 2/3) {
+			car.desiredAngle = 0;
+		}
+	}
+	
+	function eastWestStraight(car) {
+	}
+	
+	function northSouthStraight(car) {
 	}
 }
