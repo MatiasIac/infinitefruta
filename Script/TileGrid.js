@@ -8,7 +8,7 @@
 	var car = null;
 	var tileWidth = 85;
 	var tileHeight = 85;
-	var enviroment = 1;
+	var enviroment = 0;
 	
     var tiles = new Array();  
 	
@@ -32,8 +32,8 @@
 		for (i = 0; i < sizeX; i++) {
 			tileRow = new Array();
 			for (j = 0; j < sizeY; j++) {
-				//var typeNumber = (Math.round(Math.random() * 6) + 1);
-				var typeNumber = 1; //Line to test tiles
+				var typeNumber = (Math.round(Math.random() * 6) + 1);
+				//var typeNumber = 5; //Line to test tiles
 				
 				var ttype = ar.tiles[typeNumber];
 				var selectedType = ttype.availableTypes[Math.round(Math.random() * ttype.availableTypes.length - 1)];
@@ -42,6 +42,7 @@
 			tiles.push(tileRow);
 		}
 		car = new Car(self);
+		car.speed = 50 / 50;
 		car.tileXPos = 50;
 		car.tileYPos = 50;
 		car.tileX = 2;
@@ -50,16 +51,12 @@
 		car.moving = true;
 		//car.turning = true;
 		
-		//createBlanks(3)
+		createBlanks(3)
 		var c = document.getElementById("canvas");
 		c.addEventListener("mousedown", getMouseDown);
 		c.addEventListener("mouseup", getMouseUp);
 		c.addEventListener("mousemove", getMouseMove);
     }
-	
-	function CambiarABosque() {
-		enviroment = 1;
-	}
 	
 	function createBlanks(blankNumber) {
 		erasedTiles = 0;
@@ -228,10 +225,10 @@
 	
 	function southEastTurn(car) {
 		car.turning = true;
-		if (car.angle == Math.PI) { //East
+		if (car.angle == Math.PI) {
 			car.turningDirection = -1; 
 			car.desiredAngle = Math.PI / 2;
-		} else if (car.angle == Math.PI * 3/2) { //South
+		} else if (car.angle == Math.PI * 3/2) {
 			car.turningDirection = 1;
 			car.desiredAngle = 0;
 		}
@@ -239,14 +236,24 @@
 	
 	function southWestTurn(car) {
 		car.turning = true;
-		if (car.angle == 0) {
+		if (car.angle == 0) { 
+			car.turningDirection = 1; 
 			car.desiredAngle = Math.PI / 2;
-		} else if (car.angle == Math.PI * 3/2) {
-			car.desiredAngle = 0;
+		} else if (car.angle == Math.PI * 3/2) { 
+			car.turningDirection = -1;
+			car.desiredAngle = Math.PI;
 		}
 	}
 	
 	function northEastTurn(car) {
+		car.turning = true;
+		if (car.angle == Math.PI) {
+			car.turningDirection = 1; 
+			car.desiredAngle = Math.PI * 3/2;
+		} else if (car.angle == Math.PI / 2) {
+			car.turningDirection = -1;
+			car.desiredAngle = 0;
+		}
 	}
 	
 	function northWestTurn(car) {

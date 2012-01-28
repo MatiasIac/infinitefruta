@@ -3,7 +3,7 @@ function Car(tileGrid) {
 	this.turnCounter = 0;
 	this.moving = false;
 	this.turning = false;
-	var speed = 1;
+	this.speed = 1;
 	this.tileGrid = tileGrid;
 	this.tileXPos = 50;
 	this.tileYPos = 100;
@@ -17,7 +17,7 @@ function Car(tileGrid) {
 	this.update = function(delta) {
 		if (self.turning) {
 			turnCounter += 1;
-			turnCounter = turnCounter % 10
+			turnCounter = turnCounter % 2
 			if (turnCounter == 0) {
 				if (self.angle != self.desiredAngle) {
 					self.angle += (Math.PI / 4) * this.turningDirection;
@@ -31,8 +31,8 @@ function Car(tileGrid) {
 				self.angle += Math.PI * 2;
 			}
 		} else if (self.moving) {
-			self.tileXPos += speed * Math.cos(self.angle);
-			self.tileYPos += speed * Math.sin(self.angle);
+			self.tileXPos += self.speed * Math.cos(self.angle);
+			self.tileYPos += self.speed * Math.sin(self.angle);
 			
 			if (self.tileXPos < 0 || self.tileXPos > 100 || self.tileYPos < 0 || self.tileYPos > 100) {
 				self.tileGrid.reportCarTileChange(self);
