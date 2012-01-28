@@ -12,10 +12,10 @@ var jsApp	=
 		// initialize the "sound engine"
 		me.audio.init("mp3,ogg");
 		
-		// set all ressources to be loaded
+		// engancha para cuando termine de cargar los resources
 		me.loader.onload = this.loaded.bind(this);
 		// set all ressources to be loaded		
-		//me.loader.preload(g_ressources);
+		me.loader.preload(g_ressources);
 		
 		// load everything & display a loading screen
 		me.state.change(me.state.LOADING);
@@ -30,7 +30,7 @@ var jsApp	=
 		//me.state.set(me.state.READY, new InstructionScreen());
 	
 		// set the "Play/Ingame" Screen Object
-		//me.state.set(me.state.PLAY, new PlayScreen());
+		me.state.set(me.state.PLAY, new PlayScreen());
 			
 		// set the "Game Over" Screen Object
 		//me.state.set(me.state.GAMEOVER, new GameOverScreen());
