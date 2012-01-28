@@ -43,6 +43,7 @@
 	
 	function init() {
 		add(new BearGameObject());
+		add(new TileGrid());
 	}
 	
 	function add(obj) {
