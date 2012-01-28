@@ -28,9 +28,7 @@
 			i = Math.round(Math.random() * (sizeX - 1));
 			j = Math.round(Math.random() * (sizeY - 1));
 			tileType = tiles[i][j];
-			if (tileType === 0) {
-			
-			} else {
+			if (tileType == 0) {
 				tiles[i][j] = 0;
 				erasedTiles++;
 			}
