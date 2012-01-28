@@ -42,7 +42,7 @@
 	}
 	
 	function init() {
-		add(new BearGameObject());
+		//add(new BearGameObject());
 		add(new TileGrid());
 	}
 	
