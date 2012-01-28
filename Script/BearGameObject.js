@@ -42,6 +42,6 @@
     this.draw = function (context) {
 		context.drawImage(img,
 					frame * 24, 0, 24, 31,
-					x, y, 24, 31);        
+					x, y, 24, 31);
     }
 }

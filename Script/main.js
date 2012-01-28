@@ -35,6 +35,7 @@
 	
 		self.resources = {
 			car: loader.addImage('resources/main_car.png'),
+			tileSheet: loader.addImage('resources/autos-finales.png');
 			};
 
 		loader.start();
