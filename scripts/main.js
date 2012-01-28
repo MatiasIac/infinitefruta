@@ -36,7 +36,7 @@ var jsApp	=
 		//me.state.set(me.state.GAMEOVER, new GameOverScreen());
       
 		// set a fade transition effect
-		//me.state.transition("fade","#ffffff", 200);
+		me.state.transition("fade", "#ffffff", 200);
 		
 		// disable transition for the GAME OVER STATE
 		//me.state.setTransition(me.state.GAMEOVER, false);
