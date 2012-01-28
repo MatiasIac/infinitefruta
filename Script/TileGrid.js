@@ -8,6 +8,7 @@
 	var car = null;
 	var tileWidth = 85;
 	var tileHeight = 85;
+	var enviroment = 0;
 	
     var tiles = new Array();  
 	
@@ -16,25 +17,25 @@
 	var draggingObject = null;
 	
 	var ar = {"tiles": [ 
-			 { selectedType: 20, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: stopCar, availableTypes: [20, 20]},
-			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [0, 7]},
-			 { selectedType: 1, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [1, 9]},
-			 { selectedType: 2, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [2, 10]},
-			 { selectedType: 3, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [3, 8]},
-			 { selectedType: 4, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [4, 12]},
-			 { selectedType: 5, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [5, 11]},
-			 { selectedType: 6, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [6, 13]},
-			 { selectedType: 7, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [6, 15]}
+			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: stopCar, availableTypes: [20, 20]},
+			 { selectedType: 1, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [0, 7]},
+			 { selectedType: 2, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [1, 9]},
+			 { selectedType: 3, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [2, 10]},
+			 { selectedType: 4, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [3, 8]},
+			 { selectedType: 5, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [4, 12]},
+			 { selectedType: 6, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [5, 11]},
+			 { selectedType: 7, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [6, 13]},
+			 { selectedType: 8, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [6, 15]}
 			 ]};
 	
     this.init = function () {
 		for (i = 0; i < sizeX; i++) {
 			tileRow = new Array();
 			for (j = 0; j < sizeY; j++) {
-				var typeNumber = (Math.round(Math.random() * 5) + 1);
+				var typeNumber = (Math.round(Math.random() * 7) + 1);
 				var ttype = ar.tiles[typeNumber];
 				//var selectedType = ttype.availableTypes[Math.round(Math.random() * ttype.availableTypes.length - 1)];
-				tileRow.push({ tileType: ttype, state: 0, selectedType: ar.tiles[typeNumber].availableTypes[0] });
+				tileRow.push({tileType: ttype, state: 0 });
 			}
 			tiles.push(tileRow);
 		}
@@ -55,11 +56,7 @@
     }
 	
 	function CambiarABosque() {
-		for (j = 0; j < tiles.length; j++) {
-			for (i = 0; i < tiles[j].length; i++) {
-				tiles[j][i].selectedType = tiles[j][i].tileType.availableTypes[1];
-			}
-		}
+		enviroment = 1;
 	}
 	
 	function createBlanks(blankNumber) {
@@ -67,9 +64,8 @@
 		while(erasedTiles < blankNumber) {
 			i = Math.round(Math.random() * (sizeX - 1));
 			j = Math.round(Math.random() * (sizeY - 1));
-			selectedType = tiles[i][j].selectedType;
-			if (selectedType !== 20) {
-				tiles[i][j].selectedType = 20;
+			selectedType = tiles[i][j].tileType.selectedType;
+			if (selectedType !== 0) {
 				tiles[i][j].tileType = ar.tiles[0];
 				erasedTiles++;
 			}
@@ -95,7 +91,6 @@
 	function getMouseMove(ev) {
 		if (draggingObject != null) {
 			correctPointer(ev);
-			
 		}
 	}
 	
@@ -106,12 +101,12 @@
 			tileX = parseInt((pointerX - self.x) / tileWidth);
 			tileY = parseInt((pointerY - self.y) / tileHeight);
 			selected = tiles[tileX][tileY];
-			if (selected.state == 0 && selected.selectedType !== 0) {
+			if (selected.state == 0 && selected.tileType.selectedType !== 0) {
 				selected.state = 1;
 				draggingObject = {
 					tileX: tileX,
 					tileY: tileY,
-					selectedType: selected.selectedType,
+					tileType: selected.tileType,
 					offsetY: (pointerY - self.y) % tileHeight,
 					offsetX: (pointerX - self.x) % tileWidth
 				};			
@@ -127,11 +122,11 @@
 			tileY = parseInt((pointerY - self.y) / tileHeight);
 			selected = tiles[tileX][tileY];
 			
-			if (selected.selectedType === 20) {
-				selected.selectedType = draggingObject.selectedType;
+			if (selected.tileType.selectedType === 0 && draggingObject != null) {
+				selected.tileType = draggingObject.tileType;
 				selected.state = 0;
 				
-				tiles[draggingObject.tileX][draggingObject.tileY].selectedType = 20;
+				tiles[draggingObject.tileX][draggingObject.tileY].tileType = ar.tiles[0];
 				tiles[draggingObject.tileX][draggingObject.tileY].state = 0;
 			} else {
 				if (draggingObject != null) {
@@ -154,12 +149,12 @@
     this.draw = function (context) {
 		for (i = 0; i < sizeX; i++) {
 			for (j = 0; j < sizeY; j++) {
-				if (tiles[i][j].selectedType != 20 && tiles[i][j].state === 0) {
+				if (tiles[i][j].tileType.selectedType != 0 && tiles[i][j].state === 0) {
 					currentX = self.x + (i * tileWidth);
 					currentY = self.y + (j * tileHeight);
 /* 					sourceX = parseInt(tiles[i][j].selectedType % 8) * tileWidth + 1;
 					sourceY = parseInt(tiles[i][j].selectedType / 8) * tileHeight + 1; */
-					sourceX = parseInt(tiles[i][j].selectedType) * tileWidth + 1;
+					sourceX = parseInt(tiles[i][j].tileType.availableTypes[enviroment]) * tileWidth + 1;
 					sourceY = 0;
 					
 					context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth - 1, tileHeight - 1, currentX, currentY, tileWidth, tileHeight);
@@ -173,7 +168,7 @@
 				context.globalAlpha = 0.5;
 /* 				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType % 8) * tileWidth + 1;
 				sourceY = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType / 8) * tileHeight + 1; */
-				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType) * tileWidth + 1;
+				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].tileType.availableTypes[enviroment]) * tileWidth + 1;
 				sourceY = 0;
 				context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth - 1, tileHeight - 1, 
 					pointerX - draggingObject.offsetX, pointerY - draggingObject.offsetY, tileWidth, tileHeight);		
