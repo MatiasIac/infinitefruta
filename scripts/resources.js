@@ -9,7 +9,7 @@ var g_ressources = [
 	{
 		name: "car",	
 		type:"image",	
-		src: "resources/main_car.png"
+		src: "resources/graphics/main_car.png"
 	}
 	// // main background
 	// {
