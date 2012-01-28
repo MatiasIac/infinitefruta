@@ -25,7 +25,7 @@
 		loadResources();
 	};
 	
-	function loadResources() {	
+	function loadResources() {
 		var loader = new PxLoader(); 
 	
 		loader.addCompletionListener(function () {
@@ -35,8 +35,8 @@
 	
 		self.resources = {
 			car: loader.addImage('resources/main_car.png'),
-			tileSheet: loader.addImage('resources/autos-finales.png');
-			};
+			tileSheet: loader.addImage('resources/ruta85.png')
+		};
 
 		loader.start();
 	}
