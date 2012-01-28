@@ -29,7 +29,8 @@ var TitleScreen = me.ScreenObject.extend(
 		me.input.bindKey(me.input.KEY.ENTER, "enter", true);
 	},
 		
-	update : function() {	
+	update : function() {
+	
 		if (me.input.isKeyPressed('enter'))
 		{
 			//UNCOMMENT TO MOVE TO THE NEXT STATE
@@ -44,7 +45,7 @@ var TitleScreen = me.ScreenObject.extend(
 		var measure = this.font.measureText("PRESS ENTER TO PLAY");
 		
 		this.font.draw(context, "PRESS ENTER TO PLAY", 
-					  (me.video.getWidth() / 2) - (measure.width / 2),  250);
+			  (me.video.getWidth() / 2) - (measure.width / 2),  250);
 	},
 	
 	onDestroyEvent : function()
