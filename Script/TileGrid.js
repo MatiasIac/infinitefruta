@@ -47,7 +47,7 @@
 		car.tileYPos = 50;
 		car.tileX = 2;
 		car.tileY = 2;
-		car.angle = Math.PI;
+		car.angle = 0;
 		car.moving = true;
 		//car.turning = true;
 		
@@ -259,8 +259,9 @@
 	function northWestTurn(car) {
 		car.turning = true;
 		if (car.angle == 0) {
-			car.desiredAngle = Math.PI / 2;
-		} else if (car.angle == Math.PI * 3/2) {
+			car.turningDirection = -1;
+			car.desiredAngle = Math.PI * 3/2;
+		} else if (car.angle == Math.PI* 3/2) {
 			car.desiredAngle = 0;
 		}
 	}
