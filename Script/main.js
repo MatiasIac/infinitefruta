@@ -6,6 +6,7 @@
 	var self = this;
 	var objectToBeAdded = new Array();
 	var objectToDeleted = new Array();
+	
 	this.sortObjects = function() {
 		gameObjects.sort(function(a,b){return a.zOrder - b.zOrder;});
     }
@@ -24,25 +25,20 @@
 		loadResources();
 	};
 	
-	function loadResources() {
-		var resourceContainer = new ResourceContainer();
-		
-		resourceContainer.Loaded(function () {
+	function loadResources() {	
+		var loader = new PxLoader(); 
+	
+		loader.addCompletionListener(function () {
 			init();
 			setInterval(runGame, 1000 / 30);
 		});
-		
-		resourceContainer.Loading(function (){
-			//
-		});
 	
-		this.resources.car = new Image();
-		this.resources.car.src = "resources/main_car";
+		self.resources = {
+			car: loader.addImage('resources/main_car.png'),
+			};
 
-		resourceContainer.Start();
+		loader.start();
 	}
-	
-
 	
 	function init() {
 		add(new BearGameObject());
@@ -85,17 +81,17 @@
 		backBuffer.fillStyle = "rgb(255,255,255)";
 		backBuffer.fillRect(0, 0, canvas.width, canvas.height);
 		for (var i = 0; i < gameObjects.length; i++) {
-			try {
+			//try {
 				//Update game object
 				gameObjects[i].update(delta);
 				//if object is drawable, draw
-				if (gameObjects[i].draw && gameObject[i].visible) {
+				if (gameObjects[i].draw && gameObjects[i].visible) {
 					gameObjects[i].draw(backBuffer);
 				}
-			} catch (e) {
+			//} catch (e) {
 				//just swalow the exception
 				//don't in real life
-			}
+			//}
 		}
 		//Loop finished, draw everything
         context.drawImage(backBufferCanvas, 0, 0);

@@ -1,12 +1,14 @@
 ﻿function BearGameObject() {
     var counter = 0;
 
+	this.visible = true;
+	
     this.init = function () {
 		this.img = g_game.resources.car;
 		this.x = 200;
 		this.y = 130;
 		this.frame = 0;
-		this.visible = true;
+		//this.visible = true;
 		this.speed = 10;
 		this.frameSwitcher = 23;
     }
