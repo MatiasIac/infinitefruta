@@ -2189,7 +2189,7 @@
 			this.parent(true);
 			// melonJS logo
 			this.logo1 = new me.Font('century gothic', 32, 'white');
-			this.logo2 = new me.Font('century gothic', 32, '#89b002');
+			this.logo2 = new me.Font('century gothic', 32, '#0000FF');
 			this.logo2.bold();
 
 			// flag to know if we need to refresh the display
@@ -2258,7 +2258,7 @@
 			// draw the progress bar
 			context.strokeStyle = "silver";
 			context.strokeRect(0, y, context.canvas.width, 6);
-			context.fillStyle = "#89b002";
+			context.fillStyle = "#0000FF";//"#89b002";
 			context.fillRect(2, y + 2, width - 4, 2);
 		},
 
