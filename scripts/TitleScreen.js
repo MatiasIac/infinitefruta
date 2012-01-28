@@ -12,9 +12,7 @@ var TitleScreen = me.ScreenObject.extend(
 
 		if (this.title == null)
 		{
-			// init stuff if not yet done
 			//this.title = me.loader.getImage("title");
-			// font to display the menu items
 			this.font = new me.BitmapFont("kromasky_16x16", 16, 2);
 			this.font.set("left");
 		}
@@ -26,17 +24,16 @@ var TitleScreen = me.ScreenObject.extend(
 		pb.addLayer("sea-back3", 3,3);
 		me.game.add(pb);
 		me.game.sort();*/
-	
-		// enable the keyboard
+
 		me.input.bindKey(me.input.KEY.ENTER, "enter", true);
 	},
 		
 	update : function()
 	{
-		// enter pressed ?
 		if (me.input.isKeyPressed('enter'))
 		{
-			me.state.change(me.state.READY);
+			//UNCOMMENT TO MOVE TO THE NEXT STATE
+			//me.state.change(me.state.READY);
 			return true;
 		}
 		return false;
@@ -45,7 +42,7 @@ var TitleScreen = me.ScreenObject.extend(
 	draw : function(context)
 	{	
 		//context.drawImage(this.title, 0,40);
-		this.font.draw(context, "APRIETE EL ENTER", 140, 395);
+		this.font.draw(context, "APRIETE EL ENTER @", 30, 250);
 	},
 	
 	onDestroyEvent : function()
