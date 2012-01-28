@@ -34,7 +34,7 @@
 		});
 	
 		self.resources = {
-			car: loader.addImage('resources/main_car.png'),
+			car: loader.addImage('resources/cars.png'),
 			tileSheet: loader.addImage('resources/ruta85.png')
 		};
 
