@@ -5,6 +5,12 @@ var g_ressources = [
 		name: "car",	
 		type:"image",	
 		src: "resources/graphics/main_car.png"
+	},
+	
+	{
+		name: "kromasky_16x16",	
+		type:"image",	
+		src: "resources/fonts/kromasky_16x16.png"
 	}
 	
 	// // fart audio FX

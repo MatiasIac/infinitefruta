@@ -24,13 +24,13 @@ var jsApp	=
 	loaded: function ()
 	{	
 		// set the "Menu" Screen Object
-		//me.state.set(me.state.MENU, new TitleScreen());
+		me.state.set(me.state.MENU, new TitleScreen());
 		
 		// set the "Instructions" Screen Object
 		//me.state.set(me.state.READY, new InstructionScreen());
 	
 		// set the "Play/Ingame" Screen Object
-		me.state.set(me.state.PLAY, new PlayScreen());
+		//me.state.set(me.state.PLAY, new PlayScreen());
 			
 		// set the "Game Over" Screen Object
 		//me.state.set(me.state.GAMEOVER, new GameOverScreen());
@@ -78,7 +78,7 @@ var jsApp	=
 		};
 		
 		// go to the main menu
-		//me.state.change(me.state.MENU);
+		me.state.change(me.state.MENU);
 		
 		// fizzle
 		//me.audio.play("fizzle");
