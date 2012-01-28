@@ -27,23 +27,42 @@
 	
 	function loadResources() {
 		var loader = new PxLoader(); 
+		var tempCtx = document.getElementById("canvas").getContext("2d");
 	
 		loader.addCompletionListener(function () {
+			tempCtx = null;
+			
 			init();
 			setInterval(runGame, 1000 / 30);
 		});
+		
+		loader.addProgressListener(function (e) {
+			tempCtx.fillStyle = 'rgb(0,0,0)';
+			tempCtx.fillRect(0, 0, 640, 480);
+			
+			tempCtx.fillStyle = '#FFFFFF';
+			tempCtx.font = 'bold 30px arial';
+			tempCtx.fillText(e.completedCount + ' / ' + e.totalCount, 300, 220);
+		}); 
 	
 		self.resources = {
+			splash: loader.addImage('resources/portada-final.png'),
 			car: loader.addImage('resources/cars.png'),
-			tileSheet: loader.addImage('resources/ruta85.png')
+			tileSheet: loader.addImage('resources/ruta85.png'),
+			fondomenu: loader.addImage('resources/foondomenu.png'),
+			background: loader.addImage('resources/fondogame.png'),
+			common: loader.addImage('resources/luces.png'),
+			pointer: loader.addImage('resources/pointer.png')
 		};
 
 		loader.start();
 	}
 	
 	function init() {
-		//add(new BearGameObject());
+		add(new Background());
+		add(new Command());
 		add(new TileGrid());
+		add(new MousePointer());
 	}
 	
 	function add(obj) {
