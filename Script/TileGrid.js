@@ -50,7 +50,6 @@
 					sourceX = parseInt(tiles[i][j] % 8) * tileWidth + 1;
 					sourceY = parseInt(tiles[i][j] / 8) * tileHeight + 1;
 					context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth - 1, tileHeight - 1, currentX, currentY, tileWidth, tileHeight);
-					context.drawRect
 				}
 			}
 		}     
