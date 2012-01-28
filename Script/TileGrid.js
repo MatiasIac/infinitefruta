@@ -176,10 +176,11 @@
     }
 	
 	this.reportCarTileChange = function(car) {
+		//Move right
 		if (car.tileXPos > 100) {
 			car.tileX++;
 			car.tileXPos -= 100;
-			if (car.tileX > sizeX - 1) {
+			if (car.tileX > sizeX - 1 || ) {
 				//should explode
 				car.moving = false;
 			}
