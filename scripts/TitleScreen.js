@@ -5,6 +5,7 @@ var TitleScreen = me.ScreenObject.extend(
 		this.parent(true);
 		this.nodrugs = null;
 		this.font =  null;
+		this.counter = 0;
 	},
 	
 	onResetEvent : function() {
@@ -31,21 +32,29 @@ var TitleScreen = me.ScreenObject.extend(
 		
 	update : function() {
 	
+		this.counter++;
+	
 		if (me.input.isKeyPressed('enter'))
 		{
 			//UNCOMMENT TO MOVE TO THE NEXT STATE
 			//me.state.change(me.state.READY);
 			return true;
 		}
-		return false;
+		return true;
 	},
 	
 	draw : function(context) {
+		context.clearRect(0,0,me.video.getWidth(), me.video.getHeight());
+		
 		context.drawImage(this.nodrugs, 0, 0, me.video.getWidth(), me.video.getHeight());
 		var measure = this.font.measureText("PRESS ENTER TO PLAY");
 		
-		this.font.draw(context, "PRESS ENTER TO PLAY", 
+		if (this.counter >= 0 && this.counter <= 60) {
+			this.font.draw(context, "PRESS ENTER TO PLAY", 
 			  (me.video.getWidth() / 2) - (measure.width / 2),  250);
+		 } else if (this.counter >= 120) {
+			this.counter = 0;
+		 }
 	},
 	
 	onDestroyEvent : function()
