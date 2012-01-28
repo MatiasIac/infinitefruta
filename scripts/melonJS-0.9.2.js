@@ -2236,17 +2236,17 @@
 			
 			// measure the logo size
 			var y = context.canvas.height / 2;
-			var logo1_width = this.logo1.measureText(context, "melon").width;
-			var logo_width = logo1_width + this.logo2.measureText(context, "JS").width;
+			var logo1_width = this.logo1.measureText(context, "fruit").width;
+			var logo_width = logo1_width + this.logo2.measureText(context, "AR").width;
 			
 			// clear surface
 			me.video.clearSurface(context, "black");
 			
 			// draw the melonJS logo
-			this.logo1.draw(context, 'melon',
+			this.logo1.draw(context, 'fruit',
 					((context.canvas.width - logo_width) / 2),
 					(context.canvas.height + 60) / 2);
-			this.logo2.draw(context, 'JS',
+			this.logo2.draw(context, 'AR',
 					((context.canvas.width - logo_width) / 2) + logo1_width,
 					(context.canvas.height + 60) / 2);
 			// add the height of the logo

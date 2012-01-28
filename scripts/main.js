@@ -9,8 +9,6 @@ var jsApp	=
 			return;
 		}
 				
-	alert("YYYYY???");
-				
 		// initialize the "sound engine"
 		me.audio.init("mp3,ogg");
 		
@@ -90,6 +88,5 @@ var jsApp	=
 
 window.onReady(function() 
 {
-	alert("hola");
 	jsApp.onload();
 });
