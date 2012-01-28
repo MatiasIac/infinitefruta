@@ -15,6 +15,7 @@
 	var pointerX = 0;
 	var pointerY = 0;
 	var draggingObject = null;
+	var changeEnviroment = null;
 	
 	var ar = {"tiles": [ 
 			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: stopCar, availableTypes: [20, 20]},
@@ -57,6 +58,11 @@
 		c.addEventListener("mouseup", getMouseUp);
 		c.addEventListener("mousemove", getMouseMove);
     }
+	
+	function ChangeEnviromentTo(toEnviroment) {
+		
+		enviroment = 1;
+	}
 	
 	function createBlanks(blankNumber) {
 		erasedTiles = 0;
@@ -142,6 +148,8 @@
 	}
 	
     this.update = function (delta) {
+		
+		
 		car.update(delta);
     }
 
@@ -156,15 +164,32 @@
 					sourceX = parseInt(tiles[i][j].tileType.availableTypes[enviroment]) * tileWidth + 1;
 					sourceY = 0;
 					
-					context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth - 1, tileHeight - 1, currentX, currentY, tileWidth, tileHeight);
+					context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth - 1, tileHeight - 1,
+								currentX, currentY, tileWidth, tileHeight);
 				}
 			}
 		}
 		
 		car.draw(context);
+		
 		if (draggingObject != null) {
 			context.save();
+				tileX = parseInt((pointerX - self.x) / tileWidth);
+				tileY = parseInt((pointerY - self.y) / tileHeight);
+				greenTile = tiles[tileX][tileY];
+			
 				context.globalAlpha = 0.5;
+			
+				if (greenTile.tileType.selectedType === 0) {
+					var cX = self.x + (tileX * tileWidth);
+					var cY = self.y + (tileY * tileHeight);
+					context.strokeStyle = '#00FF00';
+					context.fillStyle = '#00FF00';
+					context.lineWidth = 5;
+					context.strokeRect(cX, cY, tileWidth, tileHeight);
+					context.fillRect(cX, cY, tileWidth, tileHeight);
+				}
+			
 /* 				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType % 8) * tileWidth + 1;
 				sourceY = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType / 8) * tileHeight + 1; */
 				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].tileType.availableTypes[enviroment]) * tileWidth + 1;
