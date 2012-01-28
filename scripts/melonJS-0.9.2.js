@@ -7130,8 +7130,21 @@
 			
 			---										*/
 		function onMouseEvent(e) {
-			var x = e.clientX - me.video.getScreenCanvas().offsetLeft;
-			var y = e.clientY - me.video.getScreenCanvas().offsetTop;
+			var x = 0;
+			var y = 0;
+		
+			//TE ARREGLE EL FRAMEWORK PISTIN!!!!!!
+			
+			if (e.offsetY) {
+				x = e.offsetX;
+				y = e.offsetY;
+			} else {
+				x = e.clientX - e.currentTarget.offsetLeft;
+				y = e.clientY; // - event.currentTarget.offsetHeight;
+			}
+
+			//var x = e.clientX - me.video.getScreenCanvas().offsetLeft;
+			//var y = e.clientY - me.video.getScreenCanvas().offsetTop;
 
 			// propagate the event to the callback with x,y coords
 			mouseEventCB(x, y);

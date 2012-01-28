@@ -25,6 +25,10 @@ var TitleScreen = me.ScreenObject.extend(
 		me.game.add(pb);
 		me.game.sort();*/
 
+		me.input.enableMouseEvent(true, function(x, y) {
+			alert("X: " + x + ", Y: " + y);
+		});
+		
 		me.input.bindKey(me.input.KEY.ENTER, "enter", true);
 	},
 		
