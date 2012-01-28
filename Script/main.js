@@ -30,7 +30,7 @@
 		var tempCtx = document.getElementById("canvas").getContext("2d");
 	
 		loader.addCompletionListener(function () {
-			tempCtx = null;
+			//tempCtx = null;
 			
 			init();
 			setInterval(runGame, 1000 / 30);

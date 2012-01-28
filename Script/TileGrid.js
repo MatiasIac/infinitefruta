@@ -99,6 +99,8 @@
 		}
 	}
 	
+	var drawBag = null;
+	
 	function getMouseDown(ev) {
 		correctPointer(ev);
 		if (pointerX > self.x && pointerX < self.x + tileWidth * sizeX && self.y < pointerY && self.y + tileHeight * sizeY > pointerY) {
@@ -108,6 +110,17 @@
 			selected = tiles[tileX][tileY];
 			if (selected.state == 0 && selected.tileType.selectedType !== 0) {
 				selected.state = 1;
+				
+				drawBag = new Array();
+				
+				for (i = 0; i < sizeX; i++) {
+					for (j = 0; j < sizeY; j++) {
+						if (tiles[i][j].tileType.selectedType === 0 && tiles[i][j].state === 0) {
+							drawBag.push({x: i, y: j});
+						}
+					}
+				}
+				
 				draggingObject = {
 					tileX: tileX,
 					tileY: tileY,
@@ -145,11 +158,10 @@
 		}
 		
 		draggingObject = null;
+		drawBag = null;
 	}
 	
     this.update = function (delta) {
-		
-		
 		car.update(delta);
     }
 
@@ -179,6 +191,16 @@
 				greenTile = tiles[tileX][tileY];
 			
 				context.globalAlpha = 0.5;
+			
+				for (i = 0; i < drawBag.length; i++) {
+					//if (drawBag[i].x != tileX && drawBag[i].y != tileY) {
+						context.strokeStyle = '#FF0000';
+						context.fillStyle = '#FF0000';
+						context.lineWidth = 5;
+						context.strokeRect(self.x + (drawBag[i].x * tileWidth), self.y + (drawBag[i].y * tileWidth), tileWidth, tileHeight);
+						context.fillRect(self.x + (drawBag[i].x * tileWidth), self.y + (drawBag[i].y * tileWidth), tileWidth, tileHeight);
+					//}
+				}
 			
 				if (greenTile.tileType.selectedType === 0) {
 					var cX = self.x + (tileX * tileWidth);
