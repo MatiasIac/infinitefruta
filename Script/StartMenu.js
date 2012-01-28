@@ -16,7 +16,7 @@
         }
 
         if (this.frame >= 2) this.frame = 0;
-    }
+    };
 
     this.draw = function () {
         if (this.frame) {
@@ -25,5 +25,5 @@
             context.strokeText("CLICK PARA INICIAR", this.x, this.y);
             context.fillText("CLICK PARA INICIAR", this.x, this.y);
         }
-    }
+    };
 }

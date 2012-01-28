@@ -4,10 +4,13 @@
     this.init = function () {
         this.img = new Image();
         this.img.src = "bear.png";
-        this.x = START_X;
+        this.x = 200;
         this.y = 130;
         this.frame = 0;
         this.visible = false;
+		
+		this.speed = 10;
+		this.frameSwitcher = 23;
     }
 
     this.rect = function () {
@@ -19,9 +22,9 @@
     this.update = function () {
         if (this.visible) {
             counter++;
-            this.x -= SPEED;
+            this.x -= this.speed;
 
-            if (counter >= FRAME_SWITCHER) {
+            if (counter >= this.frameSwitcher) {
                 this.frame++;
                 counter = 0;
             }
