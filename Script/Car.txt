@@ -1,0 +1,9 @@
+function Car(tileGrid) {
+	this.tileGrid = tileGrid;
+	this.tileXPos = 50;
+	this.tileYPos = 0;
+
+	this.update(delta) {
+		this.currentAction();
+	}
+}
