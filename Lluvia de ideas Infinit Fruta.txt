@@ -1,0 +1,8 @@
+Lluvia de Ideas
+- Al autito se le acaba el combustible. Propuesta: hacer aparecer cada un cierto período de tiempo un tanquecito de combustible en un "tile" random.
+
+- Terrenos: asfalto, ripio, arena (que varíe la velocidad del autito)
+
+- Taxi: recoger pasajeros y llevar a un destino.
+
+-  
