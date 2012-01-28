@@ -11,6 +11,12 @@ var g_ressources = [
 		name: "kromasky_16x16",	
 		type:"image",	
 		src: "resources/fonts/kromasky_16x16.png"
+	},
+	
+	{
+		name: "drugs",	
+		type:"image",	
+		src: "resources/graphics/no_drugs.png"
 	}
 	
 	// // fart audio FX

@@ -3,17 +3,14 @@ var TitleScreen = me.ScreenObject.extend(
 	init : function()
 	{
 		this.parent(true);
-		this.title = null;
+		this.nodrugs = null;
 		this.font =  null;
 	},
 	
-	onResetEvent : function()
-	{
-
-		if (this.title == null)
-		{
-			//this.title = me.loader.getImage("title");
-			this.font = new me.BitmapFont("kromasky_16x16", 16, 2);
+	onResetEvent : function() {
+		if (this.nodrugs == null)	{
+			this.nodrugs = me.loader.getImage("drugs");
+			this.font = new me.BitmapFont("kromasky_16x16", 16, 1);
 			this.font.set("left");
 		}
   		
@@ -25,15 +22,14 @@ var TitleScreen = me.ScreenObject.extend(
 		me.game.add(pb);
 		me.game.sort();*/
 
-		me.input.enableMouseEvent(true, function(x, y) {
+		/*me.input.enableMouseEvent(true, function(x, y) {
 			alert("X: " + x + ", Y: " + y);
-		});
+		});*/
 		
 		me.input.bindKey(me.input.KEY.ENTER, "enter", true);
 	},
 		
-	update : function()
-	{
+	update : function() {	
 		if (me.input.isKeyPressed('enter'))
 		{
 			//UNCOMMENT TO MOVE TO THE NEXT STATE
@@ -43,10 +39,12 @@ var TitleScreen = me.ScreenObject.extend(
 		return false;
 	},
 	
-	draw : function(context)
-	{	
-		//context.drawImage(this.title, 0,40);
-		this.font.draw(context, "APRIETE EL ENTER @", 30, 250);
+	draw : function(context) {
+		context.drawImage(this.nodrugs, 0, 0, me.video.getWidth(), me.video.getHeight());
+		var measure = this.font.measureText("PRESS ENTER TO PLAY");
+		
+		this.font.draw(context, "PRESS ENTER TO PLAY", 
+					  (me.video.getWidth() / 2) - (measure.width / 2),  250);
 	},
 	
 	onDestroyEvent : function()

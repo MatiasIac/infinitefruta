@@ -53,28 +53,27 @@ var jsApp	=
 		me.state.onPause = function ()
 		{
 			// get the current context
-			//var context = me.video.getScreenFrameBuffer();
+			var context = me.video.getScreenFrameBuffer();
 			
 			// create a black & white copy of the background
-			//var background = me.video.applyRGBFilter(me.video.getScreenCanvas(), "b&w");
+			var background = me.video.applyRGBFilter(me.video.getScreenCanvas(), "b&w");
 			
 			// draw the background
-			//context.drawImage(background.canvas, 0, 0);
+			context.drawImage(background.canvas, 0, 0);
 
 			//draw a black transparent square
-			//context.fillStyle = "rgba(0, 0, 0, 0.8)";
-			//context.fillRect(0, (me.video.getHeight()/2) - 30, me.video.getWidth(), 60);
+			context.fillStyle = "rgba(0, 0, 0, 0.8)";
+			context.fillRect(0, (me.video.getHeight()/2) - 30, me.video.getWidth(), 60);
          
 			// create a font (scale 3x)
-			//var font = new me.BitmapFont("kromasky_16x16", 16, 3);
-			//font.set("left");
-			// get the text size
-			//var measure = font.measureText("P A U S E");
-			// a draw "pause" ! 
-			/*font.draw (context, "P A U S E", 
-					   (me.video.getWidth()/2) - (measure.width/2) , 
-					   (me.video.getHeight()/2) - (measure.height/2));*/
-
+			var font = new me.BitmapFont("kromasky_16x16", 16, 3);
+			font.set("left");
+			
+			var measure = font.measureText("P A U S E D");
+			
+			font.draw (context, "P A U S E D", 
+					   (me.video.getWidth() / 2) - (measure.width / 2), 
+					   (me.video.getHeight() / 2) - (measure.height / 2));
 		};
 		
 		// go to the main menu
