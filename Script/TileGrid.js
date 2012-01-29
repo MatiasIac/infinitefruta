@@ -237,9 +237,14 @@ function TileGrid() {
 		}
 		
 		if (draggingObject != null) {
+			tileX = parseInt((pointerX - self.x) / tileWidth);
+			tileY = parseInt((pointerY - self.y) / tileHeight);
+			
+			if (tileX < 0 || tileY < 0 || tileX >= tiles.length || tileY >= tiles[0].length) {
+				return;
+			}
+		
 			context.save();
-				tileX = parseInt((pointerX - self.x) / tileWidth);
-				tileY = parseInt((pointerY - self.y) / tileHeight);
 				greenTile = tiles[tileX][tileY];
 			
 				context.globalAlpha = 0.5;
