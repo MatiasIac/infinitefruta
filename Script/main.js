@@ -102,7 +102,9 @@ function Game() {
 		new SManager().startupSoundManager(
             [{ name: 'crash', src: 'resources/Sounds/crash.ogg' },
              { name: 'music', src: 'resources/Sounds/gameMusic.mp3' },
-			 { name: 'refuel', src: 'resources/Sounds/fuelFilling.ogg' } 			 
+			 { name: 'refuel', src: 'resources/Sounds/fuelFilling.ogg' },
+			 { name: 'posOK', src: 'resources/Sounds/positionOk.ogg' },  
+			 { name: 'posWrong', src: 'resources/Sounds/positionWrong.ogg' }			 
             ]);
 		
 		loader.start();

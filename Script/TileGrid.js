@@ -154,17 +154,22 @@ function TileGrid() {
 			if (selected.tileType.selectedType === 0 && draggingObject != null) {
 				selected.tileType = draggingObject.tileType;
 				selected.state = 0;
-				
 				tiles[draggingObject.tileX][draggingObject.tileY].tileType = ar.tiles[0];
 				tiles[draggingObject.tileX][draggingObject.tileY].state = 0;
+				//OK
+				g_SoundManager["posOK"].play();
 			} else {
 				if (draggingObject != null) {
 					tiles[draggingObject.tileX][draggingObject.tileY].state = 0;
+					//WRONG
+					g_SoundManager["posWrong"].play();
 				}
 			}
 		} else {
 			if (draggingObject != null) {
 				tiles[draggingObject.tileX][draggingObject.tileY].state = 0;
+				//WRONG
+				g_SoundManager["posWrong"].play();
 			}
 		}
 		
