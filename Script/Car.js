@@ -14,13 +14,20 @@ function Car(tileGrid) {
 	this.angle = 0;
 	
 	this.update = function(delta) {
+		var lastTurned = false;
 		if (self.turning) {
+			lastTurned = true;
 			turnCounter += 1;
 			turnCounter = turnCounter % 2
 			if (turnCounter == 0) {
 				if (self.angle != self.desiredAngle) {
 					self.angle += (Math.PI / 4) * this.turningDirection;
 				} else {
+					if (self.angle == Math.Pi || 0) {
+						//self.tileYPos = 50
+					} else {
+						//self.tileXPos = 50
+					}
 					self.turning = false;
 				}
 			} 
@@ -29,6 +36,9 @@ function Car(tileGrid) {
 				self.angle += Math.PI * 2;
 			}
 		} else if (self.moving) {
+			self.oldXPos = self.tileXPos;
+			self.oldYPos = self.tileYPos;
+			
 			self.tileXPos += g_gameSpeed * Math.cos(self.angle);
 			self.tileYPos += g_gameSpeed * Math.sin(self.angle);
 			
@@ -36,7 +46,12 @@ function Car(tileGrid) {
 				self.tileGrid.reportCarTileChange(self);
 			}
 			
-			if (self.tileXPos == 50 && self.tileYPos == 50) {
+			if 	(lastTurned == false && 
+			((self.angle == 0 && self.tileXPos >= 50 && self.oldXPos <= 50) ||
+			(self.angle == Math.PI && self.tileXPos <= 50 && self.oldXPos >= 50) ||
+			(self.angle == Math.PI / 2 && self.tileYPos >= 50 && self.oldYPos <= 50) ||
+			(self.angle == ((3/2) * Math.PI) && self.tileYPos <= 50 && self.oldYPos >= 50)))
+			{
 				self.tileGrid.reportCarTileCenter(self);
 			}
 		}

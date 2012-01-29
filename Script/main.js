@@ -1,6 +1,9 @@
 ﻿	var g_SoundManager = null;
-	var g_gameSpeed = 1;
-	var g_speedDivisors = [50, 25, 12.5, 10, 5];
+	var g_gameSpeed = 8;
+	var g_minSpeed = 5;
+	var g_maxSpeed = 10;
+	var g_speedDivisors = [50, 40, 30, 20, 10];
+	var g_speedDivisorIndex = 0;
 	var g_gameLevel = -1;
 	var g_fuel = 0;
 	var g_goalAreaEnabled = true;
@@ -15,6 +18,7 @@
 	var g_enviroment = 0;
 	var g_gameStarting = false;
 	var g_gameRunning = false;
+	var g_shouldSpeedUp = false;
 	var g_showGameOver = false;
 	
 function Game() {
@@ -185,18 +189,18 @@ function Game() {
 		g_gameStarting = true;
 		g_gameLevel++;
 		g_fuel = g_maxFuel;
-		g_gameSpeed = 50 / g_speedDivisors[g_gameLevel];
+		g_gameSpeed = g_minSpeed;
 		levels = 
 			[
 				{	
 					fuelLossTime: 15000,
-					speedGainTime: 5000,
+					speedGainTime: 10000,
 					fuelsToGoal: 1,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 12000,
-					speedGainTime: 5000,
+					speedGainTime: 25000,
 					fuelsToGoal: 1,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				},

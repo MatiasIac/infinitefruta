@@ -7,8 +7,11 @@ function TileGrid() {
 	this.visible = true;
 	var sizeX = 5;
 	var sizeY = 5;
+	
 	var car = null;
 	var canister = null;
+	var speedItem = null;
+	
 	var slowDown = null;
 	var tileWidth = 85;
 	var tileHeight = 85;
@@ -36,6 +39,11 @@ function TileGrid() {
     this.init = function () {
 		canister = new Canister(self)
 		canister.init();
+		g_canister = canister;
+		
+		speedItem = new SpeedItem(self);
+		g_speedItem = speedItem;
+		
 		car = new Car(self);
 		g_car = car;
 		car.tileXPos = 50;
@@ -189,6 +197,7 @@ function TileGrid() {
 	
 		car.update(delta);
 		canister.update(delta);
+		speedItem.update(delta);
     }
 
     this.draw = function (context) {
@@ -222,6 +231,7 @@ function TileGrid() {
 		}
 		
 		canister.draw(context);
+		speedItem.draw(context);
 		if (car.visible) {
 			car.draw(context);
 		}
@@ -274,6 +284,7 @@ function TileGrid() {
 		Acts when the car crosses boundaries between tiles
 	*/
 	this.reportCarTileChange = function(car) {
+	
 		//Leaving goal area
 		if(car.tileX == g_goalAreaX && car.tileY == g_goalAreaY) {
 			g_goalAreaEnabled = false;
@@ -331,8 +342,13 @@ function TileGrid() {
 			canister.pickCanister();
 		}
 	
+		if (speedItem.active && car.tileX == speedItem.tileX && car.tileY == speedItem.tileY) {
+			speedItem.pickSpeedItem();
+		}
 		if (car.tileX == g_goalAreaX && car.tileY == g_goalAreaY) {
-			doVictorySpin(car);
+			if (car.angle == Math.PI) {
+				doVictorySpin(car);
+			}
 		} else {
 			var onCenterFunction = tiles[car.tileX][car.tileY].tileType.onCenter;
 			if (onCenterFunction && onCenterFunction != null) {
@@ -460,7 +476,7 @@ function Canister(tileGrid) {
 		g_fuel -= 10;
 		g_fuel = Math.max(0, g_fuel);
 		if (g_fuel == 0) {
-			lifeLost(g_car);
+			this.tileGrid.lifeLost(g_car);
 		}
 	}
 	
@@ -469,7 +485,7 @@ function Canister(tileGrid) {
 		do {
 			this.tileX = parseInt(Math.random() * 5)
 			this.tileY = parseInt(Math.random() * 5)
-		} while (this.tileX == g_car.tileX && this.tileY == g_car.tileY);
+		} while ((this.tileX == g_car.tileX && this.tileY == g_car.tileY) || (this.tileX == g_speedItem.tileX && this.tileY == g_speedItem.tileY));
 	}
 	
 	/**
@@ -500,5 +516,91 @@ function Canister(tileGrid) {
 		if (g_canistersCollected >= g_fuelsToGoal) {
 			g_goalAreaEnabled = true;
 		}
+	}
+}
+
+/**
+	SpeedItem
+*/
+function SpeedItem(tileGrid) {
+	
+	this.tileGrid = tileGrid;
+
+	this.active = false;
+	var self = null;
+	
+	this.init = function() {
+		self = this;
+		self.tileX = 2;
+		self.tileY = 2;
+	}
+	
+	/**
+	SpeedItem update method
+	*/
+	var timeToSpeedGain = null;
+	var timeToNextSpeedItem = null;
+	
+	this.update = function(delta) {
+		if (g_gameRunning) {
+			if (timeToSpeedGain == null) {
+				timeToSpeedGain = getAlarmTime(g_speedGainTime);
+			} else {
+				if (isAlarmTime(timeToSpeedGain) < 0) {
+					timeToSpeedGain = null;
+					g_speedItem.gainSpeed();
+				}
+			}
+		}
+
+		if (timeToNextSpeedItem == null && g_gameRunning && !this.active && !g_goalAreaEnabled) {
+			timeToNextSpeedItem = getAlarmTime(5000);
+		} else {
+			if (timeToNextSpeedItem != null && isAlarmTime(timeToNextSpeedItem) < 0) {
+				timeToNextSpeedItem = null;
+				this.spawnSpeedItem();
+			}
+		}
+	}
+	
+	this.gainSpeed = function() {
+		if (g_gameSpeed < g_maxSpeed) {
+			g_gameSpeed++;
+		}
+	}
+	
+	this.spawnSpeedItem = function() {
+		this.active = true;
+		do {
+			this.tileX = parseInt(Math.random() * 5)
+			this.tileY = parseInt(Math.random() * 5)
+		} while ((this.tileX == g_car.tileX && this.tileY == g_car.tileY) || (this.tileX == g_canister.tileX && this.tileY == g_canister.tileY));
+	}
+	
+	/**
+	Speed Item draw method
+	*/
+	this.draw = function(context) {
+		sourceX = 206;
+		sourceY = 0;
+		tileWidth = 40;
+		tileHeight = 85;
+		if (this.active) {
+			context.drawImage(
+				g_game.resources.common, 
+				sourceX, sourceY, 
+				tileWidth, tileHeight, 
+				//This magic numbers should come from TileGrid. 85 = tileGrid tile width & height
+				this.tileGrid.x + this.tileX * 85 + 30, 
+				this.tileGrid.y + this.tileY * 85,
+				tileWidth, tileHeight);	
+		}
+	}
+	
+	this.pickSpeedItem = function() {
+		g_speedDivisorIndex -= 3;
+		g_speedDivisorIndex = Math.max(g_speedDivisorIndex, 0);
+		g_gameSpeed = 50 / g_speedDivisors[g_speedDivisorIndex];
+		this.active = false;
 	}
 }
