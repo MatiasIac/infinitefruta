@@ -162,14 +162,14 @@ function TileGrid() {
 				if (draggingObject != null) {
 					tiles[draggingObject.tileX][draggingObject.tileY].state = 0;
 					//WRONG
-					g_SoundManager["posWrong"].play();
+					//g_SoundManager["posWrong"].play();
 				}
 			}
 		} else {
 			if (draggingObject != null) {
 				tiles[draggingObject.tileX][draggingObject.tileY].state = 0;
 				//WRONG
-				g_SoundManager["posWrong"].play();
+				//g_SoundManager["posWrong"].play();
 			}
 		}
 		
