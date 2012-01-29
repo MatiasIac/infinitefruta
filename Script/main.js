@@ -23,6 +23,7 @@
 	var g_waitingForNextLevel = false;
 	var g_timeBetweenLevels = 3000;
 	var g_score = 0;
+	var g_showingLevelUp = false;
 	
 function Game() {
 	var tileGrid = null;

@@ -62,10 +62,27 @@ function Command() {
 			
 				context.globalAlpha = 1;
 				context.fillStyle = '#FFFFFF';
-				context.strokeStyle = "#003300";
+				context.strokeStyle = "#FF3300";
+				context.lineWidth = 3;
 				context.font = 'bold 50px sans-serif';
-				context.fillText('GAME OVER!', 180, 220);
-				context.strokeText('GAME OVER!', 180, 220);
+				context.fillText('TRY AGAIN!', 180, 220);
+				context.strokeText('TRY AGAIN!', 180, 220);
+			context.restore();
+		}
+		
+		if (g_showingLevelUp) {
+			context.save();
+				context.globalAlpha = 0.5;
+				context.fillStyle = '#000000';
+				context.fillRect(0, 150, 640, 120);
+			
+				context.globalAlpha = 1;
+				context.fillStyle = '#FFFFFF';
+				context.strokeStyle = "#FF3300";
+				context.lineWidth = 3;
+				context.font = 'bold 50px sans-serif';
+				context.fillText('LEVELING UP!', 180, 220);
+				context.strokeText('LEVELING UP!', 180, 220);
 			context.restore();
 		}
 		
