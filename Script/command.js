@@ -101,7 +101,7 @@ function Command() {
 			context.restore();
 		}
 		
-		if (g_showingLevelUp) {
+		if (g_showingLevelUp && false) {
 			context.save();
 				context.globalAlpha = 0.5;
 				context.fillStyle = '#000000';
