@@ -78,8 +78,8 @@ function Game() {
 			splash: loader.addImage('resources/portada-final.png'),
 			car: loader.addImage('resources/cars.png'),
 			tileSheet: loader.addImage('resources/ruta85.png'),
-			fondomenu: loader.addImage('resources/foondomenu.png'),
-			background: loader.addImage('resources/fondogame.png'),
+			fondomenu: loader.addImage('resources/fondomenu2.png'),
+			background: loader.addImage('resources/fondogame2.png'),
 			common: loader.addImage('resources/luces.png'),
 			pointer: loader.addImage('resources/pointer.png'),
 			exit: loader.addImage('resources/camionboxes.png'),
@@ -191,13 +191,13 @@ function Game() {
 				{	
 					fuelLossTime: 15000,
 					speedGainTime: 5000,
-					fuelsToGoal: 10,
+					fuelsToGoal: 1,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 12000,
 					speedGainTime: 5000,
-					fuelsToGoal: 15,
+					fuelsToGoal: 1,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				},
 				{	
@@ -219,7 +219,7 @@ function Game() {
 			g_fuelsToGoal = levels[g_gameLevel].fuelsToGoal;
 			g_levelObjects = levels[g_gameLevel].levelObjects;
 			tileGrid.loadLevelTiles();
-	
+			g_gameStarting = true;
 	}
 }
 
