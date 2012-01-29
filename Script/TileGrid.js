@@ -103,6 +103,7 @@
 	var drawBag = null;
 	
 	function getMouseDown(ev) {
+		//g_game.resources.explotion.play();
 		correctPointer(ev);
 		if (pointerX > self.x && pointerX < self.x + tileWidth * sizeX && self.y < pointerY && self.y + tileHeight * sizeY > pointerY) {
 			//we're inside the grid
@@ -321,6 +322,7 @@
 	function lifeLost(car) {
 		car.moving = false;
 		car.visible = false;
+		g_SoundManager["crash"].play();
 	}
 	
 	function eastWestStraight(car) {

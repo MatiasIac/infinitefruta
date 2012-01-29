@@ -63,21 +63,15 @@ function Game() {
 			fondomenu: loader.addImage('resources/foondomenu.png'),
 			background: loader.addImage('resources/fondogame.png'),
 			common: loader.addImage('resources/luces.png'),
-			pointer: loader.addImage('resources/pointer.png')
+			pointer: loader.addImage('resources/pointer.png'),
+			//explotion: loader.addSound('hola','resources/sounds/booom.ogg')
 		};
 
 		/*Modo de uso en los lugares de los sonidos: g_SoundManager["credits"].play();*/
-		/*new SManager().startupSoundManager(/*
-            [{ name: 'credits', src: 'Sound/credits.mp3' },
-             { name: 'start', src: 'Sound/star.mp3' },
-             { name: 'bubuzela', src: 'Sound/cheer3.wav' },
-             { name: 'mezcla', src: 'Sound/mezcla.mp3' },
-             { name: 'sizzle1', src: 'Sound/sizzle1.mp3' },
-             { name: 'sizzle2', src: 'Sound/sizzle2.mp3' },
-             { name: 'sizzle3', src: 'Sound/sizzle3.mp3' },
-             { name: 'mainTheme', src: 'Sound/mainTheme.mp3' },
-             { name: 'alarm', src: 'Sound/alarm.wav' }            
-            ]);*/
+		new SManager().startupSoundManager(
+            [{ name: 'crash', src: 'resources/Sounds/crash.ogg' },
+                       
+            ]);
 		
 		loader.start();
 	}
