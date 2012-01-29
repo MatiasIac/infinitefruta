@@ -182,7 +182,7 @@ function Game() {
 		
 		if (g_waitingForNextLevel) {
 			if (nextLevelAlarm == null) {
-				nextLevelAlarm = getAlarmTime(6000);
+				nextLevelAlarm = getAlarmTime(12000);
 			} else {
 				if (isAlarmTime(nextLevelAlarm)) {
 					g_waitingForNextLevel = false;
@@ -197,7 +197,6 @@ function Game() {
 		//TODO: Change victory sound
 		
 		g_SoundManager["crash"].play();
-		g_enviroment++;
 		g_waitingForNextLevel = true;
 		
 	}
@@ -206,33 +205,34 @@ function Game() {
 		g_canistersCollected = 0;
 		g_gameStarting = true;
 		g_gameLevel++;
+		g_enviroment = g_gameLevel;
 		g_fuel = g_maxFuel;
 		g_gameSpeed = g_minSpeed;
 		levels = 
 			[
 				{	
 					fuelLossTime: 15000,
-					speedGainTime: 5000,
-					fuelsToGoal: 5,
-					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
+					speedGainTime: 25000,
+					fuelsToGoal: 2,
+					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,0,0,7,7,7,0,0,0,0]
 				},
 				{	
 					fuelLossTime: 12000,
-					speedGainTime: 25000,
-					fuelsToGoal: 10,
-					levelObjects: [1,1,1,2,2,2,3,0,3,4,4,4,5,0,5,6,6,6,7,7,7,8,8,8,0]
+					speedGainTime: 20000,
+					fuelsToGoal: 3,
+					levelObjects: [1,1,1,2,2,2,3,0,3,4,4,4,5,0,5,6,0,0,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 10000,
-					speedGainTime: 5000,
-					fuelsToGoal: 18,
-					levelObjects: [1,1,0,2,2,0,3,3,0,4,4,0,5,5,0,6,6,0,7,7,7,8,8,8,0]
+					speedGainTime: 15000,
+					fuelsToGoal: 4,
+					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,0,6,6,7,7,7,8,8,0,0]
 				},
 				{	
 					fuelLossTime: 8000,
-					speedGainTime: 5000,
-					fuelsToGoal: 24,
-					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
+					speedGainTime: 10000,
+					fuelsToGoal: 6,
+					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,0,6,6,7,7,7,8,8,8,0]
 				}
 			];
 			

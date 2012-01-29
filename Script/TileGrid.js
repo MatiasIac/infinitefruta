@@ -456,7 +456,7 @@ function Canister(tileGrid) {
 		}
 
 		if (timeToNextCanister == null && g_gameRunning && !this.active && !g_goalAreaEnabled) {
-			timeToNextCanister = getAlarmTime(7500);
+			timeToNextCanister = getAlarmTime(3000);
 		} else {
 			if (timeToNextCanister != null && isAlarmTime(timeToNextCanister) < 0) {
 				timeToNextCanister = null;
@@ -547,7 +547,7 @@ function SpeedItem(tileGrid) {
 		}
 
 		if (timeToNextSpeedItem == null && g_gameRunning && !this.active && !g_goalAreaEnabled) {
-			timeToNextSpeedItem = getAlarmTime(5000);
+			timeToNextSpeedItem = getAlarmTime(2500);
 		} else {
 			if (timeToNextSpeedItem != null && isAlarmTime(timeToNextSpeedItem) < 0) {
 				timeToNextSpeedItem = null;
