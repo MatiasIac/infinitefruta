@@ -62,7 +62,7 @@ function TileGrid() {
     }
 	
 	this.loadLevelTiles = function() {
-		
+		tiles.splice(0);
 		for (i = 0; i < sizeX; i++) {
 			tileRow = new Array();
 			for (j = 0; j < sizeY; j++) {
@@ -409,7 +409,6 @@ function TileGrid() {
 	this.lifeLost = function(car) {
 		g_gameRunning = false;	
 		car.moving = false;
-		car.visible = false;
 		g_SoundManager["crash"].play();
 		g_SoundManager["music"].pause();
 		
@@ -559,7 +558,7 @@ function SpeedItem(tileGrid) {
 	
 	this.gainSpeed = function() {
 		if (g_gameSpeed < g_maxSpeed) {
-			g_gameSpeed++;
+			g_gameSpeed += g_speedIncrement;
 		}
 	}
 	
@@ -592,9 +591,7 @@ function SpeedItem(tileGrid) {
 	}
 	
 	this.pickSpeedItem = function() {
-		g_speedDivisorIndex -= 3;
-		g_speedDivisorIndex = Math.max(g_speedDivisorIndex, 0);
-		g_gameSpeed = 50 / g_speedDivisors[g_speedDivisorIndex];
+		g_gameSpeed = Math.max(g_minSpeed, g_gameSpeed - 2);
 		this.active = false;
 	}
 }

@@ -1,9 +1,8 @@
 ﻿	var g_SoundManager = null;
 	var g_gameSpeed = 8;
-	var g_minSpeed = 5;
-	var g_maxSpeed = 10;
-	var g_speedDivisors = [50, 40, 30, 20, 10];
-	var g_speedDivisorIndex = 0;
+	var g_minSpeed = 2;
+	var g_maxSpeed = 8;
+	var g_speedIncrement = 0.25;
 	var g_gameLevel = -1;
 	var g_fuel = 0;
 	var g_goalAreaEnabled = true;
@@ -20,6 +19,7 @@
 	var g_gameRunning = false;
 	var g_shouldSpeedUp = false;
 	var g_showGameOver = false;
+	var g_waitingForNextLevel = false;
 	
 function Game() {
 	var tileGrid = null;
@@ -152,6 +152,7 @@ function Game() {
 		self.sortObjects();
 	}
 	
+	var nextLevelAlarm = null;
 	function runGame() {
 		var thisFrame = new Date().getTime();
 		var delta = (thisFrame - this.lastFrame) / 1000;
@@ -172,10 +173,22 @@ function Game() {
 				//don't in real life
 			//}
 		}
+		
 		//Loop finished, draw everything
         context.drawImage(backBufferCanvas, 0, 0);
 		
 		processAll();
+		
+		if (g_waitingForNextLevel) {
+			if (nextLevelAlarm == null) {
+				nextLevelAlarm = getAlarmTime(6000);
+			} else {
+				if (isAlarmTime(nextLevelAlarm)) {
+					g_waitingForNextLevel = false;
+					levelUp();
+				}
+			}
+		}
 	};
 	
 	
@@ -184,6 +197,8 @@ function Game() {
 		
 		g_SoundManager["crash"].play();
 		g_enviroment++;
+		g_waitingForNextLevel = true;
+		
 	}
 	function levelUp() {
 		//reset game divisors
@@ -196,7 +211,7 @@ function Game() {
 			[
 				{	
 					fuelLossTime: 15000,
-					speedGainTime: 10000,
+					speedGainTime: 5000,
 					fuelsToGoal: 1,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				},
