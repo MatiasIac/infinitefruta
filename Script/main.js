@@ -14,6 +14,8 @@
 	var g_speedGainTime = 0;
 	var g_enviroment = 0;
 	var g_gameStarting = false;
+	var g_gameRunning = false;
+	
 function Game() {
 	var tileGrid = null;
 	var backBufferCanvas = null;
@@ -187,14 +189,14 @@ function Game() {
 				{	
 					fuelLossTime: 10000,
 					speedGainTime: 5000,
-					fuelsToGoal: 5,
-					levelObjects: [1,2,3,4,5,6,1,2,3,4,5,6,7,8,5,5,1,2,3,3,5,6,7,8,1,0]
+					fuelsToGoal: 1,
+					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 10000,
 					speedGainTime: 5000,
-					fuelsToGoal: 5,
-					levelObjects: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+					fuelsToGoal: 1,
+					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				}
 			];
 			

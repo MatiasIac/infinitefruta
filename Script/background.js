@@ -1,7 +1,7 @@
 function Background() {
 	var self = this;
 
-	this.speed = 1;
+	this.speed = 0;
 	this.visible = true;
 	
     this.init = function () {

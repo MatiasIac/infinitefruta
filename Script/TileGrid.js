@@ -1,4 +1,6 @@
-﻿function TileGrid() {
+﻿var g_car = null;
+
+function TileGrid() {
 	var self = this;
 	this.x = 170;
 	this.y = 30;
@@ -6,6 +8,8 @@
 	var sizeX = 5;
 	var sizeY = 5;
 	var car = null;
+	var canister = null;
+	var slowDown = null;
 	var tileWidth = 85;
 	var tileHeight = 85;
 
@@ -30,7 +34,10 @@
 			 ]};
 	
     this.init = function () {
+		canister = new Canister(self)
+		canister.init();
 		car = new Car(self);
+		g_car = car;
 		car.tileXPos = 50;
 		car.tileYPos = 50;
 		car.tileX = g_goalAreaX;
@@ -160,7 +167,7 @@
 	var startWaitTime = null;
 	
 	/**
-	Update Functions
+	TileGrid Update Function
 	*/
     this.update = function (delta) {
 		if (g_gameStarting == true && startWaitTime == null) {
@@ -173,6 +180,7 @@
 				car.visible = true;
 				car.moving = true;
 				startWaitTime = null;
+				g_gameRunning = true;
 			} else {
 				car.visible = (timeLeft % 500 < 250);
 			}
@@ -180,6 +188,7 @@
 	
 	
 		car.update(delta);
+		canister.update(delta);
     }
 
     this.draw = function (context) {
@@ -202,9 +211,12 @@
 			}
 		}
 		
+		canister.draw(context);
 		if (car.visible) {
 			car.draw(context);
 		}
+		
+		
 		if (draggingObject != null) {
 			context.save();
 				tileX = parseInt((pointerX - self.x) / tileWidth);
@@ -295,11 +307,15 @@
 			}
 		}
 		if (lifeLoss) {
-			lifeLost(car);
+			this.lifeLost(car);
 		}
 	}
 	
 	this.reportCarTileCenter = function(car) {
+		if (canister.active && car.tileX == canister.tileX && car.tileY == canister.tileY) {
+			canister.pickCanister();
+		}
+	
 		if (car.tileX == g_goalAreaX && car.tileY == g_goalAreaY) {
 			doVictorySpin(car);
 		} else {
@@ -365,7 +381,8 @@
 		}
 	}
 	
-	function lifeLost(car) {
+	this.lifeLost = function(car) {
+		g_gameRunning = false;	
 		car.moving = false;
 		car.visible = false;
 		g_SoundManager["crash"].play();
@@ -376,5 +393,95 @@
 	}
 	
 	function northSouthStraight(car) {
+	}
+}
+
+/**
+	Canisters
+*/
+function Canister(tileGrid) {
+	
+	this.tileGrid = tileGrid;
+
+	this.active = false;
+	var self = null;
+	
+	this.init = function() {
+		self = this;
+		self.tileX = 2;
+		self.tileY = 2;
+	}
+	/**
+	Canister update method
+	*/
+	var timeToFuelDown = null;
+	var timeToNextCanister = null;
+	
+	this.update = function(delta) {
+		if (g_gameRunning) {
+			if (timeToFuelDown == null) {
+				timeToFuelDown = getAlarmTime(g_fuelLossTime);
+			} else {
+				if (isAlarmTime(timeToFuelDown) < 0) {
+					timeToFuelDown = null;
+					this.fuelDown();
+				}
+			}
+		}
+
+		if (timeToNextCanister == null && g_gameRunning && !this.active && !g_goalAreaEnabled) {
+			timeToNextCanister = getAlarmTime(7500);
+		} else {
+			if (timeToNextCanister != null && isAlarmTime(timeToNextCanister) < 0) {
+				timeToNextCanister = null;
+				this.spawnCanister();
+			}
+		}
+	}
+	
+	this.fuelDown = function() {
+		g_fuel -= 10;
+		g_fuel = Math.max(0, g_fuel);
+		if (g_fuel == 0) {
+			lifeLost(g_car);
+		}
+	}
+	
+	this.spawnCanister = function() {
+		this.active = true;
+		do {
+			this.tileX = parseInt(Math.random() * 5)
+			this.tileY = parseInt(Math.random() * 5)
+		} while (this.tileX == g_car.tileX && this.tileY == g_car.tileY);
+	}
+	
+	/**
+	Canister draw method
+	*/
+	this.draw = function(context) {
+		sourceX = 265;
+		sourceY = 0;
+		tileWidth = 40;
+		tileHeight = 85;
+		if (this.active) {
+			context.drawImage(
+				g_game.resources.common, 
+				sourceX, sourceY, 
+				tileWidth, tileHeight, 
+				//This magic numbers should come from TileGrid. 85 = tileGrid tile width & height
+				this.tileGrid.x + this.tileX * 85 + 30, 
+				this.tileGrid.y + this.tileY * 85,
+				tileWidth, tileHeight);	
+		}
+	}
+	
+	this.pickCanister = function() {
+		g_canistersCollected++;
+		g_fuel += 50;
+		g_fuel = Math.min(g_fuel, g_maxFuel);
+		this.active = false;
+		if (g_canistersCollected >= g_fuelsToGoal) {
+			g_goalAreaEnabled = true;
+		}
 	}
 }

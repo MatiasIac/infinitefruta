@@ -50,8 +50,8 @@ function Car(tileGrid) {
 		
 		context.drawImage(
 			g_game.resources.car, 
-			sourceX + 1, sourceY + 1, 
-			tileWidth - 1, tileHeight - 1, 
+			sourceX, sourceY, 
+			tileWidth, tileHeight, 
 			//This magic numbers should come from TileGrid. 85 = tileGrid tile width & height
 			self.tileGrid.x + self.tileX * 85 + self.tileXPos * 85 / 100 - tileWidth / 2, 
 			self.tileGrid.y + self.tileY * 85 + self.tileYPos * 85 / 100 - tileHeight / 2,
