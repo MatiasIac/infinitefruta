@@ -337,6 +337,7 @@ function TileGrid() {
 	}
 	
 	this.reportCarTileCenter = function(car) {
+		g_score += 10;
 		if (canister.active && car.tileX == canister.tileX && car.tileY == canister.tileY) {
 			canister.pickCanister();
 		}
@@ -365,6 +366,7 @@ function TileGrid() {
 		car.moving = false;
 		car.turningDirection = -1; 
 		car.desiredAngle = 0;
+		g_showingLevelUp = true;
 	}
 	
 	function southEastTurn(car) {

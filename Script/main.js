@@ -211,6 +211,7 @@ function Game() {
 			increment = 1;
 		}
 		//reset game divisors
+		g_showingLevelUp = false;
 		g_canistersCollected = 0;
 		g_gameStarting = true;
 		g_gameLevel += increment;
@@ -220,25 +221,25 @@ function Game() {
 		levels = 
 			[
 				{	
-					fuelLossTime: 15000,
+					fuelLossTime: 9000,
 					speedGainTime: 25000,
 					fuelsToGoal: 2,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,0,0,7,7,7,0,0,0,0]
 				},
 				{	
-					fuelLossTime: 12000,
+					fuelLossTime: 7500,
 					speedGainTime: 20000,
 					fuelsToGoal: 3,
 					levelObjects: [1,1,1,2,2,2,3,0,3,4,4,4,5,0,5,6,0,0,7,7,7,8,8,8,0]
 				},
 				{	
-					fuelLossTime: 10000,
+					fuelLossTime: 6000,
 					speedGainTime: 15000,
 					fuelsToGoal: 4,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,0,6,6,7,7,7,8,8,0,0]
 				},
 				{	
-					fuelLossTime: 8000,
+					fuelLossTime: 5000,
 					speedGainTime: 10000,
 					fuelsToGoal: 6,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,0,6,6,7,7,7,8,8,8,0]
