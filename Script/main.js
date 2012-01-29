@@ -82,7 +82,7 @@ function Game() {
 			background: loader.addImage('resources/fondogame.png'),
 			common: loader.addImage('resources/luces.png'),
 			pointer: loader.addImage('resources/pointer.png'),
-			//explotion: loader.addSound('hola','resources/sounds/booom.ogg')
+			exit: loader.addImage('resources/camionboxes.png'),
 		};
 
 		/*Modo de uso en los lugares de los sonidos: g_SoundManager["credits"].play();*/

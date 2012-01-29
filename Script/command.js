@@ -37,9 +37,9 @@ function Command() {
 		}
 		
 		//if (!over) {
-			context.drawImage(g_game.resources.common, 
-					300, 33, 81, 27,
-					15, 430, 81, 27);
+		context.drawImage(g_game.resources.common, 
+				300, 33, 81, 27,
+				15, 430, 81, 27);
 		//} else {
 		//	context.drawImage(g_game.resources.common, 
 		//			473, 33, 89, 27,
