@@ -1,7 +1,7 @@
 function Background() {
 	var self = this;
 
-	this.speed = 1.5;
+	//this.speed = 1.5;
 	this.visible = true;
 	
     this.init = function () {
@@ -10,38 +10,62 @@ function Background() {
     }
 	
     this.update = function (delta) {
-		this.y -= self.speed;
+		//this.y -= self.speed;
 
-        if (this.y + 479 <= 0)
-            this.y = 0;
+        //if (this.y + 479 <= 0)
+            //this.y = 0;
     }
 
     this.draw = function (context) {
 	
 		context.drawImage(g_game.resources.fondomenu, this.x, this.y,
-                    g_game.resources.fondomenu.width, g_game.resources.fondomenu.height);
+                    g_game.resources.fondomenu.width + 50, g_game.resources.fondomenu.height);
 
-        context.drawImage(g_game.resources.fondomenu, this.x, this.y + 479,
-                    g_game.resources.fondomenu.width, g_game.resources.fondomenu.height);
+        //context.drawImage(g_game.resources.fondomenu, this.x, this.y + 479,
+        //            g_game.resources.fondomenu.width, g_game.resources.fondomenu.height);
 
 		context.drawImage(g_game.resources.background, 119, 0);
 					
 		context.drawImage(g_game.resources.common, 
 					661, 36, 84, 19,
 					15, 10, 84, 19);
+
+		context.drawImage(g_game.resources.meters,
+			40, 74, 112, 57,
+			5, 40, 112, 57);
 		
-		context.font = "16pt Calibri";
-		context.fillText("Fuel", 5, 50);
-		context.fillText(g_fuel, 5, 70);
+		//Metter full fuel
+		context.drawImage(g_game.resources.meters,
+			40, 6, (g_fuel * g_maxFuel) / 112, 57,
+			5, 40, (g_fuel * g_maxFuel) / 112, 57);
 		
-		context.fillText("Speed",5, 100);
-		context.fillText(g_gameSpeed, 5, 120);
+		//context.font = "16pt Calibri";
+		//context.fillText("Fuel", 5, 50);
+		//context.fillText(g_fuel, 5, 70);
+				
+		context.drawImage(g_game.resources.meters,
+			40, 150, 112, 57,
+			5, 150, 112, 57);
 		
-		context.fillText("Score", 5, 150);
-		context.fillText(g_gameSpeed,5, 170);
+		context.drawImage(g_game.resources.meters,
+			40, 150, 112, 57,
+			5, 150, 112, 57);
 		
-		context.fillText("Canisters left", 5, 200);
-		context.fillText(g_fuelsToGoal - g_canistersCollected, 5, 220);
+		var p = (g_gameSpeed * 100) / g_maxSpeed;
+		
+		context.drawImage(g_game.resources.meters,
+			24, 155, 9, 29,
+			((p / 100) * 29) + 7, 153, 9, 29);
+			
+		
+		/*context.fillText("Speed",5, 100);
+		context.fillText(g_gameSpeed, 5, 120);*/
+		
+		/*context.fillText("Score", 5, 150);
+		context.fillText(g_gameSpeed,5, 170);*/
+		
+		//context.fillText("Canisters left", 5, 200);
+		//context.fillText(g_fuelsToGoal - g_canistersCollected, 5, 220);
 		
     }
 

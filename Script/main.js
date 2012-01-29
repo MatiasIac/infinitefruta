@@ -83,10 +83,11 @@ function Game() {
 			car: loader.addImage('resources/cars.png'),
 			tileSheet: loader.addImage('resources/ruta85.png'),
 			fondomenu: loader.addImage('resources/fondomenu2.png'),
-			background: loader.addImage('resources/fondogame2.png'),
+			background: loader.addImage('resources/fondomain.png'),
 			common: loader.addImage('resources/luces.png'),
 			pointer: loader.addImage('resources/pointer.png'),
 			exit: loader.addImage('resources/camionboxes.png'),
+			meters: loader.addImage('resources/medidores.png'),
 		};
 
 		/*Modo de uso en los lugares de los sonidos: g_SoundManager["credits"].play();*/

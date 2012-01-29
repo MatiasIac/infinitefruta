@@ -220,7 +220,7 @@ function TileGrid() {
 			}
 		}
 		
-		if (g_goalAreaEnabled) {
+		/*if (g_goalAreaEnabled) {
 			context.drawImage(g_game.resources.exit,
 				136, 110, 61, 55,
 				120, 295, 61, 55);
@@ -228,7 +228,7 @@ function TileGrid() {
 			context.drawImage(g_game.resources.exit,
 				0, 12, 95, 68,
 				60, 290, 95, 68);
-		}
+		}*/
 		
 		canister.draw(context);
 		speedItem.draw(context);
@@ -236,11 +236,11 @@ function TileGrid() {
 			car.draw(context);
 		}
 		
-		if (g_goalAreaEnabled) {	
+		/*if (g_goalAreaEnabled) {	
 			context.drawImage(g_game.resources.exit,
 				0, 103, 95, 68,
 				60, 290, 95, 68);
-		}
+		}*/
 		
 		if (draggingObject != null) {
 			context.save();
