@@ -1,7 +1,7 @@
 ﻿function TileGrid() {
 	var self = this;
-	this.x = 150;
-	this.y = 50;
+	this.x = 170;
+	this.y = 30;
 	this.visible = true;
 	var sizeX = 5;
 	var sizeY = 5;
@@ -9,7 +9,7 @@
 	var tileWidth = 85;
 	var tileHeight = 85;
 
-    var tiles = new Array();  
+    var tiles = new Array();
 	
 	var pointerX = 0;
 	var pointerY = 0;
@@ -30,53 +30,47 @@
 			 ]};
 	
     this.init = function () {
-		for (i = 0; i < sizeX; i++) {
-			tileRow = new Array();
-			for (j = 0; j < sizeY; j++) {
-				var typeNumber = (Math.round(Math.random() * 7) + 1);
-				//var typeNumber = 2; //Line to test tiles
-				
-				var ttype = ar.tiles[typeNumber];
-				var selectedType = ttype.availableTypes[Math.round(Math.random() * ttype.availableTypes.length - 1)];
-				tileRow.push({tileType: ttype, state: 0 });
-			}
-			tiles.push(tileRow);
-		}
 		car = new Car(self);
-		car.speed = 50 / 25;
 		car.tileXPos = 50;
 		car.tileYPos = 50;
 		car.tileX = g_goalAreaX;
 		car.tileY = g_goalAreaY;
 		car.angle = 0;
-		car.moving = true;
+		car.visible = true;
+		car.moving = false;
 		//car.turning = true;
 		g_SoundManager["music"].play();
-		
-		createBlanks(3)
 		var c = document.getElementById("canvas");
 		c.addEventListener("mousedown", getMouseDown);
 		c.addEventListener("mouseup", getMouseUp);
 		c.addEventListener("mousemove", getMouseMove);
     }
 	
+	this.loadLevelTiles = function() {
+		
+		for (i = 0; i < sizeX; i++) {
+			tileRow = new Array();
+			for (j = 0; j < sizeY; j++) {
+				if(g_levelObjects.length <= 0) {
+					alert("Problem! No more tiles for this level");
+				}
+				var randomTileNumber = (parseInt(Math.random() * g_levelObjects.length));
+				randomTileType = g_levelObjects.splice(randomTileNumber, 1);
+				var ttype = ar.tiles[randomTileType];
+				if (ttype == undefined) {
+					alert("Undefined tileType! " + randomTileType);
+				}
+				tileRow.push({tileType: ttype, state: 0 });
+			}
+			tiles.push(tileRow);
+		}
+	}
+	
 	function ChangeEnviromentTo(toEnviroment) {
 		
 		enviroment = 1;
 	}
 	
-	function createBlanks(blankNumber) {
-		erasedTiles = 0;
-		while(erasedTiles < blankNumber) {
-			i = Math.round(Math.random() * (sizeX - 1));
-			j = Math.round(Math.random() * (sizeY - 1));
-			selectedType = tiles[i][j].tileType.selectedType;
-			if (selectedType !== 0) {
-				tiles[i][j].tileType = ar.tiles[0];
-				erasedTiles++;
-			}
-		}
-	}
 
 	function correctPointer(ev) {
 			var offsetX = 0;
@@ -163,13 +157,37 @@
 		drawBag = null;
 	}
 	
+	var startWaitTime = null;
+	
+	/**
+	Update Functions
+	*/
     this.update = function (delta) {
+		if (g_gameStarting == true && startWaitTime == null) {
+			startWaitTime = getAlarmTime(5000);
+		}
+		if (startWaitTime != null) {
+			timeLeft = isAlarmTime(startWaitTime);
+			if (timeLeft < 0) {
+				g_gameStarting = false;
+				car.visible = true;
+				car.moving = true;
+				startWaitTime = null;
+			} else {
+				car.visible = (timeLeft % 500 < 250);
+			}
+		}
+	
+	
 		car.update(delta);
     }
 
     this.draw = function (context) {
 		for (i = 0; i < sizeX; i++) {
 			for (j = 0; j < sizeY; j++) {
+				if (tiles[i][j].tileType == undefined) {
+					alert("Undefined tile! " + tiles[i][j]);
+				}
 				if (tiles[i][j].tileType.selectedType != 0 && tiles[i][j].state === 0) {
 					currentX = self.x + (i * tileWidth);
 					currentY = self.y + (j * tileHeight);
@@ -184,8 +202,9 @@
 			}
 		}
 		
-		car.draw(context);
-		
+		if (car.visible) {
+			car.draw(context);
+		}
 		if (draggingObject != null) {
 			context.save();
 				tileX = parseInt((pointerX - self.x) / tileWidth);
@@ -350,7 +369,7 @@
 		car.moving = false;
 		car.visible = false;
 		g_SoundManager["crash"].play();
-		g_SoundManager["music"].stop();
+		g_SoundManager["music"].pause();
 	}
 	
 	function eastWestStraight(car) {

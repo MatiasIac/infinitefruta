@@ -28,6 +28,20 @@ function Background() {
 		context.drawImage(g_game.resources.common, 
 					661, 36, 84, 19,
 					15, 10, 84, 19);
+		
+		context.font = "16pt Calibri";
+		context.fillText("Fuel", 5, 50);
+		context.fillText(g_fuel, 5, 70);
+		
+		context.fillText("Speed",5, 100);
+		context.fillText(g_gameSpeed, 5, 120);
+		
+		context.fillText("Score", 5, 150);
+		context.fillText(g_gameSpeed,5, 170);
+		
+		context.fillText("Canisters left", 5, 200);
+		context.fillText(g_fuelsToGoal - g_canistersCollected, 5, 220);
+		
     }
 
 }
