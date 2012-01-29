@@ -209,15 +209,15 @@ function Game() {
 	}
 	this.levelUpWrapper = levelUp;
 	
-	function levelUp(increment) {
-		if (increment == undefined) {
-			increment = 1;
+	function levelUp(newLevel) {
+		if (newLevel == undefined) {
+			newLevel = g_gameLevel + 1;
 		}
-		//reset game divisors
+		g_goalAreaEnabled = true;
 		g_showingLevelUp = false;
 		g_canistersCollected = 0;
 		g_gameStarting = true;
-		g_gameLevel += increment;
+		g_gameLevel = newLevel;
 		g_enviroment = g_gameLevel;
 		g_fuel = g_maxFuel;
 		g_gameSpeed = g_minSpeed;
@@ -225,25 +225,29 @@ function Game() {
 			[
 				{	
 					fuelLossTime: 9000,
-					speedGainTime: 25000,
-					fuelsToGoal: 2,
+					speedGainTime: 20000,
+					minSpeed: 1.5,
+					fuelsToGoal: 1,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,0,0,7,7,7,0,0,0,0]
 				},
 				{	
 					fuelLossTime: 7500,
-					speedGainTime: 20000,
+					speedGainTime: 18000,
+					minSpeed: 2,
 					fuelsToGoal: 3,
 					levelObjects: [1,1,1,2,2,2,3,0,3,4,4,4,5,0,5,6,0,0,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 6000,
 					speedGainTime: 15000,
+					minSpeed: 2.5,
 					fuelsToGoal: 4,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,0,6,6,7,7,7,8,8,0,0]
 				},
 				{	
 					fuelLossTime: 5000,
 					speedGainTime: 10000,
+					minSpeed: 3,
 					fuelsToGoal: 6,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,0,6,6,7,7,7,8,8,8,0]
 				}
@@ -255,6 +259,8 @@ function Game() {
 			g_speedGainTime = levels[g_gameLevel].speedGainTime;
 			g_fuelsToGoal = levels[g_gameLevel].fuelsToGoal;
 			g_levelObjects = levels[g_gameLevel].levelObjects;
+			g_minSpeed = levels[g_gameLevel].minSpeed;
+			g_gameSpeed = g_minSpeed;
 			tileGrid.loadLevelTiles();
 			g_gameStarting = true;
 	}

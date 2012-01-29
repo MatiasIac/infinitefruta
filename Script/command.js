@@ -23,7 +23,7 @@ function Command() {
 	
 		if (g_showingGameOver) {
 			if (x >= 180 && x <= 310 && y >= 230 && y <= 270) {
-				g_game.levelUpWrapper(0);
+				g_game.levelUpWrapper(g_gameLevel);
 				g_car.tileXPos = 50;
 				g_car.tileYPos = 50;
 				g_car.tileX = g_goalAreaX;
@@ -33,6 +33,7 @@ function Command() {
 				g_car.moving = false;
 				g_showingGameOver = false;
 			}
+			g_score = 0;
 		}
 		
 		if (g_showingGameOver) {
@@ -68,6 +69,7 @@ function Command() {
 				g_showingGameOver = true;
 			}
 		}
+
     }
 
     this.draw = function (context) {
