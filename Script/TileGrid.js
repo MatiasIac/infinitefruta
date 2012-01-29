@@ -1,7 +1,9 @@
 ﻿var g_car = null;
+var g_tileGrid;
 
 function TileGrid() {
 	var self = this;
+	g_tileGrid = this;
 	this.x = 170;
 	this.y = 30;
 	this.visible = true;
@@ -24,7 +26,7 @@ function TileGrid() {
 	var changeEnviroment = null;
 	
 	var ar = {"tiles": [ 
-			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: stopCar, availableTypes: [-1, -1, -1, -1]},
+			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: killCar, availableTypes: [-1, -1, -1, -1]},
 			 { selectedType: 1, canNorth: false, canSouth: true, canWest: false, canEast: true, onCenter: southEastTurn, availableTypes: [0, 7, 17, 24]},
 			 { selectedType: 2, canNorth: false, canSouth: false, canWest: true, canEast: true, onCenter: eastWestStraight, availableTypes: [1, 9, 18, 26]},
 			 { selectedType: 3, canNorth: true, canSouth: true, canWest: false, canEast: false, onCenter: northSouthStraight, availableTypes: [2, 10, 19, 27]},
@@ -362,8 +364,8 @@ function TileGrid() {
 		}
 	}
 	
-	function stopCar(car) {
-		car.moving = false;
+	function killCar(car) {
+		g_tileGrid.lifeLost(car);
 	}
 	
 	function doVictorySpin(car) {
