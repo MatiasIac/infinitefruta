@@ -26,9 +26,9 @@ function Background() {
 
 		context.drawImage(g_game.resources.background, 119, 0);
 					
-		context.drawImage(g_game.resources.common, 
+		/*context.drawImage(g_game.resources.common, 
 					661, 36, 84, 19,
-					15, 10, 84, 19);
+					15, 10, 84, 19);*/
 
 		context.drawImage(g_game.resources.meters,
 			40, 74, 112, 57,
