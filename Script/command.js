@@ -25,21 +25,32 @@ function Command() {
 			//Retry
 			if (x >= 180 && x <= 310 && y >= 230 && y <= 270) {
 				g_game.levelUpWrapper(g_gameLevel);
+				g_car.tileXPos = 50;
+				g_car.tileYPos = 50;
+				g_car.tileX = g_goalAreaX;
+				g_car.tileY = g_goalAreaY;
+				g_car.angle = 0;
+				g_car.visible = true;
+				g_car.moving = false;
+				g_showingGameOver = false;			
+				g_score = 0;
 			}
 			//New game
 			if (x >= 390 && x <= 480 && y >= 230 && y <= 260){
 				g_game.levelUpWrapper(0);
+				
+				g_car.tileXPos = 50;
+				g_car.tileYPos = 50;
+				g_car.tileX = g_goalAreaX;
+				g_car.tileY = g_goalAreaY;
+				g_car.angle = 0;
+				g_car.visible = true;
+				g_car.moving = false;
+				g_showingGameOver = false;			
+				g_score = 0;
 			}
 
-			g_car.tileXPos = 50;
-			g_car.tileYPos = 50;
-			g_car.tileX = g_goalAreaX;
-			g_car.tileY = g_goalAreaY;
-			g_car.angle = 0;
-			g_car.visible = true;
-			g_car.moving = false;
-			g_showingGameOver = false;			
-			g_score = 0;
+			
 		}
 	}
 	
