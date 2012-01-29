@@ -15,6 +15,7 @@
 	var g_enviroment = 0;
 	var g_gameStarting = false;
 	var g_gameRunning = false;
+	var g_showGameOver = false;
 	
 function Game() {
 	var tileGrid = null;
@@ -46,11 +47,12 @@ function Game() {
 	
 	this.init = function() {
 		add(new Background());
-		add(new Command());
+		
 		tileGrid = new TileGrid();
 		add(tileGrid);
-		add(new MousePointer());
 		levelUp();
+		add(new Command());
+		add(new MousePointer());
 	}
 	
 	function loadResources() {
@@ -187,15 +189,27 @@ function Game() {
 		levels = 
 			[
 				{	
-					fuelLossTime: 10000,
+					fuelLossTime: 15000,
 					speedGainTime: 5000,
-					fuelsToGoal: 1,
+					fuelsToGoal: 10,
+					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
+				},
+				{	
+					fuelLossTime: 12000,
+					speedGainTime: 5000,
+					fuelsToGoal: 15,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 10000,
 					speedGainTime: 5000,
-					fuelsToGoal: 1,
+					fuelsToGoal: 18,
+					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
+				},
+				{	
+					fuelLossTime: 8000,
+					speedGainTime: 5000,
+					fuelsToGoal: 24,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				}
 			];

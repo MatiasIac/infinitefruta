@@ -387,6 +387,8 @@ function TileGrid() {
 		car.visible = false;
 		g_SoundManager["crash"].play();
 		g_SoundManager["music"].pause();
+		
+		g_showGameOver = true;
 	}
 	
 	function eastWestStraight(car) {
