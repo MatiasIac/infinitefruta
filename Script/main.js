@@ -20,6 +20,7 @@
 	var g_shouldSpeedUp = false;
 	var g_showGameOver = false;
 	var g_waitingForNextLevel = false;
+	var g_score = 0;
 	
 function Game() {
 	var tileGrid = null;

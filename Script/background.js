@@ -79,9 +79,13 @@ function Background() {
 		
 		/*context.fillText("Speed",5, 100);
 		context.fillText(g_gameSpeed, 5, 120);*/
-		
-		/*context.fillText("Score", 5, 150);
-		context.fillText(g_gameSpeed,5, 170);*/
+		context.save();
+			var textToShow = g_score + " KM";
+			context.font = 'bold 20px arial';
+			var textWidth = context.measureText(textToShow);
+			
+			context.fillText(textToShow, (119 - textWidth.width) - 10, 270);
+		context.restore();
 		
 		//context.fillText("Canisters left", 5, 200);
 		//context.fillText(g_fuelsToGoal - g_canistersCollected, 5, 220);
