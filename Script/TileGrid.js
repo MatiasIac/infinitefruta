@@ -52,6 +52,7 @@
 		car.angle = 0;
 		car.moving = true;
 		//car.turning = true;
+		g_SoundManager["music"].play();
 		
 		createBlanks(3)
 		var c = document.getElementById("canvas");
@@ -323,6 +324,7 @@
 		car.moving = false;
 		car.visible = false;
 		g_SoundManager["crash"].play();
+		g_SoundManager["music"].stop();
 	}
 	
 	function eastWestStraight(car) {
