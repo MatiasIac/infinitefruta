@@ -3,12 +3,15 @@
 	var g_speedDivisors = [50, 25, 12.5, 10, 5];
 	var g_gameLevel = 0;
 	var g_fuel = 0;
-	var g_goalCompleted = false;
+	var g_goalAreaEnabled = true;
+	var g_goalAreaX = -1;
+	var g_goalAreaY = 3;
 	var g_fuelsToGoal = 0;
 	var g_levelObjects = new Array();
 	var g_maxFuel = 100;
 	var g_fuelLossTime = 0;
 	var g_speedGainTime = 0;
+	var g_enviroment = 0;
 function Game() {
 	var backBufferCanvas = null;
 	var backBuffer = null;
@@ -75,6 +78,7 @@ function Game() {
 		
 		loader.start();
 	}
+	
 	
 	function SManager() {
 		this.listSound = null;
@@ -158,6 +162,12 @@ function Game() {
 		processAll();
 	};
 	
+	
+	this.prepareLevelUp = function() {
+		//TODO: Change victory sound
+		g_SoundManager["crash"].play();
+		g_enviroment++;
+	}
 	function levelUp() {
 		g_gameLevel++;
 		//reset game divisors
@@ -182,6 +192,15 @@ function Game() {
 	
 	
 	}
+}
+
+function getAlarmTime(ticks) {
+	var thisFrame = new Date().getTime();
+	var alarmTime = (thisFrame + ticks) / 1000;
+}
+
+function isAlarmTime(alarmTime) {
+	return alarmTime - thisFrame; 
 }
 
 var g_game = new Game();

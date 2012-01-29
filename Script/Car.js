@@ -22,7 +22,6 @@ function Car(tileGrid) {
 					self.angle += (Math.PI / 4) * this.turningDirection;
 				} else {
 					self.turning = false;
-					self.moving = true;
 				}
 			} 
 			self.angle = self.angle % (2 * Math.PI);

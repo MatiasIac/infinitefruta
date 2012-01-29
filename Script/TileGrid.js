@@ -8,8 +8,7 @@
 	var car = null;
 	var tileWidth = 85;
 	var tileHeight = 85;
-	var enviroment = 3;
-	
+
     var tiles = new Array();  
 	
 	var pointerX = 0;
@@ -47,8 +46,8 @@
 		car.speed = 50 / 25;
 		car.tileXPos = 50;
 		car.tileYPos = 50;
-		car.tileX = 2;
-		car.tileY = 2;
+		car.tileX = g_goalAreaX;
+		car.tileY = g_goalAreaY;
 		car.angle = 0;
 		car.moving = true;
 		//car.turning = true;
@@ -176,7 +175,7 @@
 					currentY = self.y + (j * tileHeight);
 /* 					sourceX = parseInt(tiles[i][j].selectedType % 8) * tileWidth + 1;
 					sourceY = parseInt(tiles[i][j].selectedType / 8) * tileHeight + 1; */
-					sourceX = parseInt(tiles[i][j].tileType.availableTypes[enviroment]) * tileWidth;
+					sourceX = parseInt(tiles[i][j].tileType.availableTypes[g_enviroment]) * tileWidth;
 					sourceY = 0;
 					
 					context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth, tileHeight,
@@ -217,7 +216,7 @@
 			
 /* 				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType % 8) * tileWidth + 1;
 				sourceY = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType / 8) * tileHeight + 1; */
-				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].tileType.availableTypes[enviroment]) * tileWidth;
+				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].tileType.availableTypes[g_enviroment]) * tileWidth;
 				sourceY = 0;
 				context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth, tileHeight, 
 					pointerX - draggingObject.offsetX, pointerY - draggingObject.offsetY, tileWidth, tileHeight);		
@@ -229,7 +228,13 @@
 		Acts when the car crosses boundaries between tiles
 	*/
 	this.reportCarTileChange = function(car) {
+		//Leaving goal area
+		if(car.tileX == g_goalAreaX && car.tileY == g_goalAreaY) {
+			g_goalAreaEnabled = false;
+		}
+		
 		lifeLoss = false;
+		
 		//Move right
 		if (car.tileXPos > 100) {
 			car.tileX++;
@@ -241,7 +246,17 @@
 			car.tileX--;
 			car.tileXPos += 100;
 			//eval left
-			if (car.tileX < 0 || !tiles[car.tileX][car.tileY].tileType.canEast) {
+			//Accesing goal area
+			if (car.tileX == g_goalAreaX && car.tileY == g_goalAreaY) {
+				if (g_goalAreaEnabled) {
+					//if accessing goal area with goals completed, set the level up flag
+					//and go to next level
+					g_game.prepareLevelUp();
+					return
+				} else {
+					lifeLoss = true;
+				}
+			} else if (car.tileX < 0 || !tiles[car.tileX][car.tileY].tileType.canEast) {
 				lifeLoss = true;
 			}
 		} else if (car.tileYPos > 100) {
@@ -266,14 +281,25 @@
 	}
 	
 	this.reportCarTileCenter = function(car) {
-		var onCenterFunction = tiles[car.tileX][car.tileY].tileType.onCenter;
-		if (onCenterFunction && onCenterFunction != null) {
-			tiles[car.tileX][car.tileY].tileType.onCenter(car);
+		if (car.tileX == g_goalAreaX && car.tileY == g_goalAreaY) {
+			doVictorySpin(car);
+		} else {
+			var onCenterFunction = tiles[car.tileX][car.tileY].tileType.onCenter;
+			if (onCenterFunction && onCenterFunction != null) {
+				tiles[car.tileX][car.tileY].tileType.onCenter(car);
+			}
 		}
 	}
 	
 	function stopCar(car) {
 		car.moving = false;
+	}
+	
+	function doVictorySpin(car) {
+		car.turning = true;
+		car.moving = false;
+		car.turningDirection = -1; 
+		car.desiredAngle = 0;
 	}
 	
 	function southEastTurn(car) {
