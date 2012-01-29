@@ -5,7 +5,28 @@ function Command() {
 	this.visible = true;
 	
     this.init = function () {
+		var c = document.getElementById("canvas");
+		c.addEventListener("click", getClick);
     }
+	
+	function getClick(ev) {
+		var x = 0;
+		var y = 0;
+
+		if (ev.offsetY) {
+			x = ev.offsetX;
+			y = ev.offsetY;
+		} else {
+			x = ev.clientX - ev.currentTarget.offsetLeft;
+			y = ev.clientY;
+		}
+	
+		//15, 430, 81, 27
+		if (x >= 15 && x <= 96 && y >= 430 && y <= 457 ) {
+			//New game here
+			
+		}
+	}
 	
 	//var animateGameOver = false;
 	//var xGO = 0;
@@ -16,6 +37,7 @@ function Command() {
 		//	xGO += 10.5;
 		//	if (xGO >= 640) { animateGameOver = false; }
 		//}
+		
     }
 
     this.draw = function (context) {

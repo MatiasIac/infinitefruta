@@ -53,7 +53,29 @@ function Background() {
 		context.drawImage(g_game.resources.meters,
 			24, 155, 9, 29,
 			((p / 100) * 112), 123, 9, 29);
-			
+		
+		//Draw gas
+		var i = 0;
+		var row = 0;
+		var counter = 0;
+		
+		for (i = 0; i < g_canistersCollected; i++) {
+			context.drawImage(g_game.resources.gas, counter * 22, (row * 50) + 200);
+			counter++;
+			if (counter === 5) {
+				row++;
+				counter = 0;
+			}
+		}
+		
+		for (; i < g_fuelsToGoal; i++) {
+			context.drawImage(g_game.resources.gasgray, counter * 22, (row * 50) + 200);
+			counter++;
+			if (counter === 5) {
+				row++;
+				counter = 0;
+			}
+		}
 		
 		/*context.fillText("Speed",5, 100);
 		context.fillText(g_gameSpeed, 5, 120);*/

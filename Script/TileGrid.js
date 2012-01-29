@@ -491,13 +491,13 @@ function Canister(tileGrid) {
 		tileHeight = 85;
 		if (this.active) {
 			context.drawImage(
-				g_game.resources.common, 
+				g_game.resources.gas, /*, 
 				sourceX, sourceY, 
-				tileWidth, tileHeight, 
+				tileWidth, tileHeight, */
 				//This magic numbers should come from TileGrid. 85 = tileGrid tile width & height
 				this.tileGrid.x + this.tileX * 85 + 30, 
-				this.tileGrid.y + this.tileY * 85,
-				tileWidth, tileHeight);	
+				this.tileGrid.y + this.tileY * 85 + 30/*,
+				tileWidth, tileHeight*/);	
 		}
 	}
 	
@@ -580,13 +580,13 @@ function SpeedItem(tileGrid) {
 		tileHeight = 85;
 		if (this.active) {
 			context.drawImage(
-				g_game.resources.common, 
-				sourceX, sourceY, 
-				tileWidth, tileHeight, 
+				g_game.resources.slow, 
+				/*sourceX, sourceY, 
+				tileWidth, tileHeight, */
 				//This magic numbers should come from TileGrid. 85 = tileGrid tile width & height
-				this.tileGrid.x + this.tileX * 85 + 30, 
-				this.tileGrid.y + this.tileY * 85,
-				tileWidth, tileHeight);	
+				this.tileGrid.x + this.tileX * 85 + 20, 
+				this.tileGrid.y + this.tileY * 85 + 20
+				/*tileWidth, tileHeight*/);	
 		}
 	}
 	

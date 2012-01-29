@@ -88,7 +88,10 @@ function Game() {
 			pointer: loader.addImage('resources/pointer.png'),
 			exit: loader.addImage('resources/camionboxes.png'),
 			meters: loader.addImage('resources/medidores.png'),
-			barreras: loader.addImage('resources/barreras.png')
+			barreras: loader.addImage('resources/barreras.png'),
+			gas: loader.addImage('resources/gas.png'),
+			slow: loader.addImage('resources/slow.png'),
+			gasgray: loader.addImage('resources/grasgray.png')
 		};
 
 		/*Modo de uso en los lugares de los sonidos: g_SoundManager["credits"].play();*/
@@ -120,9 +123,7 @@ function Game() {
 			return this;
 		}
 	}
-	
-
-	
+		
 	function add(obj) {
 		objectToBeAdded.push(obj);
 	}
@@ -212,20 +213,20 @@ function Game() {
 				{	
 					fuelLossTime: 15000,
 					speedGainTime: 5000,
-					fuelsToGoal: 1,
+					fuelsToGoal: 5,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 12000,
 					speedGainTime: 25000,
-					fuelsToGoal: 1,
-					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
+					fuelsToGoal: 10,
+					levelObjects: [1,1,1,2,2,2,3,0,3,4,4,4,5,0,5,6,6,6,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 10000,
 					speedGainTime: 5000,
 					fuelsToGoal: 18,
-					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
+					levelObjects: [1,1,0,2,2,0,3,3,0,4,4,0,5,5,0,6,6,0,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 8000,
@@ -234,6 +235,8 @@ function Game() {
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,0]
 				}
 			];
+			
+			if (g_gameLevel > levels.length) { g_gameLevel = 0; }
 			
 			g_fuelLossTime = levels[g_gameLevel].fuelLossTime;
 			g_speedGainTime = levels[g_gameLevel].speedGainTime;
