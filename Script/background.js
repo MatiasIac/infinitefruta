@@ -39,23 +39,20 @@ function Background() {
 			40, 6, (g_fuel * g_maxFuel) / 112, 57,
 			5, 40, (g_fuel * g_maxFuel) / 112, 57);
 		
-		//context.font = "16pt Calibri";
-		//context.fillText("Fuel", 5, 50);
-		//context.fillText(g_fuel, 5, 70);
-				
-		context.drawImage(g_game.resources.meters,
-			40, 150, 112, 57,
-			5, 150, 112, 57);
+		context.save();
+			context.fillStyle = "#FFFFFF";
+			context.fillRect(7, 121, 108, 50);
+		context.restore();
 		
 		context.drawImage(g_game.resources.meters,
 			40, 150, 112, 57,
-			5, 150, 112, 57);
+			5, 120, 112, 57);
 		
-		var p = (g_gameSpeed * 100) / g_maxSpeed;
+		var p = (g_gameSpeed * 100) / g_maxSpeed;		
 		
 		context.drawImage(g_game.resources.meters,
 			24, 155, 9, 29,
-			((p / 100) * 29) + 7, 153, 9, 29);
+			((p / 100) * 112), 123, 9, 29);
 			
 		
 		/*context.fillText("Speed",5, 100);
