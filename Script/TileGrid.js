@@ -1,14 +1,14 @@
 ﻿function TileGrid() {
 	var self = this;
-	this.x = 120;
-	this.y = 0;
+	this.x = 150;
+	this.y = 50;
 	this.visible = true;
-	var sizeX = 4;
-	var sizeY = 4;
+	var sizeX = 5;
+	var sizeY = 5;
 	var car = null;
 	var tileWidth = 85;
 	var tileHeight = 85;
-	var enviroment = 0;
+	var enviroment = 3;
 	
     var tiles = new Array();  
 	
@@ -18,14 +18,15 @@
 	var changeEnviroment = null;
 	
 	var ar = {"tiles": [ 
-			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: stopCar, availableTypes: [20, 20]},
-			 { selectedType: 1, canNorth: false, canSouth: true, canWest: false, canEast: true, onCenter: southEastTurn, availableTypes: [0, 7]},
-			 { selectedType: 2, canNorth: false, canSouth: false, canWest: true, canEast: true, onCenter: eastWestStraight, availableTypes: [1, 9]},
-			 { selectedType: 3, canNorth: true, canSouth: true, canWest: false, canEast: false, onCenter: northSouthStraight, availableTypes: [2, 10]},
-			 { selectedType: 4, canNorth: false, canSouth: true, canWest: true, canEast: false, onCenter: southWestTurn, availableTypes: [3, 8]},
-			 { selectedType: 5, canNorth: true, canSouth: false, canWest: false, canEast: true, onCenter: northEastTurn, availableTypes: [4, 12]},
-			 { selectedType: 6, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [5, 11]},
-			 { selectedType: 7, canNorth: true, canSouth: false, canWest: true, canEast: false, onCenter: northWestTurn, availableTypes: [6, 13]},
+			 { selectedType: 0, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: stopCar, availableTypes: [-1, -1, -1, -1]},
+			 { selectedType: 1, canNorth: false, canSouth: true, canWest: false, canEast: true, onCenter: southEastTurn, availableTypes: [0, 7, 17, 24]},
+			 { selectedType: 2, canNorth: false, canSouth: false, canWest: true, canEast: true, onCenter: eastWestStraight, availableTypes: [1, 9, 18, 26]},
+			 { selectedType: 3, canNorth: true, canSouth: true, canWest: false, canEast: false, onCenter: northSouthStraight, availableTypes: [2, 10, 19, 27]},
+			 { selectedType: 4, canNorth: false, canSouth: true, canWest: true, canEast: false, onCenter: southWestTurn, availableTypes: [3, 8, 20, 25]},
+			 { selectedType: 5, canNorth: true, canSouth: false, canWest: false, canEast: true, onCenter: northEastTurn, availableTypes: [4, 12, 21, 29]},
+			 { selectedType: 6, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [5, 11, 22, 28]},
+			 { selectedType: 7, canNorth: true, canSouth: false, canWest: true, canEast: false, onCenter: northWestTurn, availableTypes: [6, 13, 23, 30]},
+			 { selectedType: 8, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [5, 14, 22, 31]},
 			 //{ selectedType: 8, canNorth: false, canSouth: false, canWest: false, canEast: false, onCenter: null, availableTypes: [7, 15]}
 			 ]};
 	
@@ -33,7 +34,7 @@
 		for (i = 0; i < sizeX; i++) {
 			tileRow = new Array();
 			for (j = 0; j < sizeY; j++) {
-				var typeNumber = (Math.round(Math.random() * 6) + 1);
+				var typeNumber = (Math.round(Math.random() * 7) + 1);
 				//var typeNumber = 2; //Line to test tiles
 				
 				var ttype = ar.tiles[typeNumber];
@@ -43,7 +44,7 @@
 			tiles.push(tileRow);
 		}
 		car = new Car(self);
-		car.speed = 50 / 50;
+		car.speed = 50 / 25;
 		car.tileXPos = 50;
 		car.tileYPos = 50;
 		car.tileX = 2;
@@ -173,10 +174,10 @@
 					currentY = self.y + (j * tileHeight);
 /* 					sourceX = parseInt(tiles[i][j].selectedType % 8) * tileWidth + 1;
 					sourceY = parseInt(tiles[i][j].selectedType / 8) * tileHeight + 1; */
-					sourceX = parseInt(tiles[i][j].tileType.availableTypes[enviroment]) * tileWidth + 1;
+					sourceX = parseInt(tiles[i][j].tileType.availableTypes[enviroment]) * tileWidth;
 					sourceY = 0;
 					
-					context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth - 1, tileHeight - 1,
+					context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth, tileHeight,
 								currentX, currentY, tileWidth, tileHeight);
 				}
 			}
@@ -214,9 +215,9 @@
 			
 /* 				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType % 8) * tileWidth + 1;
 				sourceY = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].selectedType / 8) * tileHeight + 1; */
-				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].tileType.availableTypes[enviroment]) * tileWidth + 1;
+				sourceX = parseInt(tiles[draggingObject.tileX][draggingObject.tileY].tileType.availableTypes[enviroment]) * tileWidth;
 				sourceY = 0;
-				context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth - 1, tileHeight - 1, 
+				context.drawImage(g_game.resources.tileSheet, sourceX, sourceY, tileWidth, tileHeight, 
 					pointerX - draggingObject.offsetX, pointerY - draggingObject.offsetY, tileWidth, tileHeight);		
 			context.restore();
 		}
@@ -226,40 +227,42 @@
 		Acts when the car crosses boundaries between tiles
 	*/
 	this.reportCarTileChange = function(car) {
+		lifeLoss = false;
 		//Move right
 		if (car.tileXPos > 100) {
 			car.tileX++;
 			car.tileXPos -= 100;
 			if (car.tileX > sizeX - 1 || !tiles[car.tileX][car.tileY].tileType.canWest) {
-				//should explode
-				car.moving = false;
+				lifeLoss = true;
 			}
 		} else if (car.tileXPos < 0) {
 			car.tileX--;
 			car.tileXPos += 100;
 			//eval left
 			if (car.tileX < 0 || !tiles[car.tileX][car.tileY].tileType.canEast) {
-				//should explode
-				car.moving = false;
+				lifeLoss = true;
 			}
 		} else if (car.tileYPos > 100) {
 			car.tileY++;
 			car.tileYPos -= 100;
-			if (car.tileY > sizeY - 1 || !tiles[car.tileX][car.tileY].tileType.canSouth) {
-				car.moving = false;
+			if (car.tileY > sizeY - 1 || !tiles[car.tileX][car.tileY].tileType.canNorth) {
+				lifeLoss = true;
 			}
 			//eval up
 		} else if (car.tileYPos < 0) {
 			car.tileY--;
 			car.tileYPos += 100;
 			//eval down
-			if (car.tileY < 0 || !tiles[car.tileX][car.tileY].tileType.canNorth) {
+			if (car.tileY < 0 || !tiles[car.tileX][car.tileY].tileType.canSouth) {
 				//should explode
-				car.moving = false;
+				lifeLoss = true;
 			}
 		}
+		if (lifeLoss) {
+			lifeLost(car);
+		}
 	}
-
+	
 	this.reportCarTileCenter = function(car) {
 		var onCenterFunction = tiles[car.tileX][car.tileY].tileType.onCenter;
 		if (onCenterFunction && onCenterFunction != null) {
@@ -309,9 +312,15 @@
 		if (car.angle == 0) {
 			car.turningDirection = -1;
 			car.desiredAngle = Math.PI * 3/2;
-		} else if (car.angle == Math.PI* 3/2) {
-			car.desiredAngle = 0;
+		} else if (car.angle == Math.PI / 2) {
+			car.turningDirection = 1;
+			car.desiredAngle = Math.PI;
 		}
+	}
+	
+	function lifeLost(car) {
+		car.moving = false;
+		car.visible = false;
 	}
 	
 	function eastWestStraight(car) {

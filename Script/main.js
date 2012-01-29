@@ -1,5 +1,14 @@
-﻿var g_SoundManager = null;
-
+﻿	var g_SoundManager = null;
+	var g_gameSpeed = 1;
+	var g_speedDivisors = [50, 25, 12.5, 10, 5];
+	var g_gameLevel = 0;
+	var g_fuel = 0;
+	var g_goalCompleted = false;
+	var g_fuelsToGoal = 0;
+	var g_levelObjects = new Array();
+	var g_maxFuel = 100;
+	var g_fuelLossTime = 0;
+	var g_speedGainTime = 0;
 function Game() {
 	var backBufferCanvas = null;
 	var backBuffer = null;
@@ -134,15 +143,15 @@ function Game() {
 		var delta = (thisFrame - this.lastFrame) / 1000;
 		this.lastFrame = thisFrame;
 		//background colour
-		backBuffer.fillStyle = "rgb(255,255,255)";
-		backBuffer.fillRect(0, 0, canvas.width, canvas.height);
-		for (var i = 0; i < gameObjects.length; i++) {
-			//try {
-				//Update game object
-				gameObjects[i].update(delta);
-				//if object is drawable, draw
-				if (gameObjects[i].draw && gameObjects[i].visible) {
-					gameObjects[i].draw(backBuffer);
+			backBuffer.fillStyle = "rgb(255,255,255)";
+			backBuffer.fillRect(0, 0, canvas.width, canvas.height);
+			for (var i = 0; i < gameObjects.length; i++) {
+				//try {
+					//Update game object
+					gameObjects[i].update(delta);
+					//if object is drawable, draw
+					if (gameObjects[i].draw && gameObjects[i].visible) {
+						gameObjects[i].draw(backBuffer);
 				}
 			//} catch (e) {
 				//just swalow the exception
@@ -154,6 +163,31 @@ function Game() {
 		
 		processAll();
 	};
+	
+	function levelUp() {
+		g_gameLevel++;
+		//reset game divisors
+		g_gameSpeed = g_speedDivisors[0];
+		levels = 
+			[
+				{	
+					fuelLossTime: 10000,
+					speedGainTime: 5000,
+					goalCompleted: false,
+					fuelsToGoal: 5,
+					levelObjects: [1,2,3,4,5,6,1,2,3,4,5,6,7,8,9,10,11,12,13,0,0,0,0,0,0,0]
+				},
+				{	
+					fuelLossTime: 10000,
+					speedGainTime: 5000,
+					goalCompleted: false,
+					fuelsToGoal: 5,
+					levelObjects: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+				}
+			];
+	
+	
+	}
 }
 
 var g_game = new Game();

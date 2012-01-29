@@ -3,7 +3,6 @@ function Car(tileGrid) {
 	this.turnCounter = 0;
 	this.moving = false;
 	this.turning = false;
-	this.speed = 1;
 	this.tileGrid = tileGrid;
 	this.tileXPos = 50;
 	this.tileYPos = 100;
@@ -31,8 +30,8 @@ function Car(tileGrid) {
 				self.angle += Math.PI * 2;
 			}
 		} else if (self.moving) {
-			self.tileXPos += self.speed * Math.cos(self.angle);
-			self.tileYPos += self.speed * Math.sin(self.angle);
+			self.tileXPos += g_gameSpeed * Math.cos(self.angle);
+			self.tileYPos += g_gameSpeed * Math.sin(self.angle);
 			
 			if (self.tileXPos < 0 || self.tileXPos > 100 || self.tileYPos < 0 || self.tileYPos > 100) {
 				self.tileGrid.reportCarTileChange(self);
