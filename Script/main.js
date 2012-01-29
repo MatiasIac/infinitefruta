@@ -19,7 +19,9 @@
 	var g_gameRunning = false;
 	var g_shouldSpeedUp = false;
 	var g_showGameOver = false;
+	var g_showingGameOver = false;
 	var g_waitingForNextLevel = false;
+	var g_timeBetweenLevels = 3000;
 	var g_score = 0;
 	
 function Game() {
@@ -183,9 +185,9 @@ function Game() {
 		
 		if (g_waitingForNextLevel) {
 			if (nextLevelAlarm == null) {
-				nextLevelAlarm = getAlarmTime(12000);
+				nextLevelAlarm = getAlarmTime(g_timeBetweenLevels);
 			} else {
-				if (isAlarmTime(nextLevelAlarm)) {
+				if (isAlarmTime(nextLevelAlarm) < 0) {
 					g_waitingForNextLevel = false;
 					levelUp();
 				}
@@ -201,11 +203,16 @@ function Game() {
 		g_waitingForNextLevel = true;
 		
 	}
-	function levelUp() {
+	this.levelUpWrapper = levelUp;
+	
+	function levelUp(increment) {
+		if (increment == undefined) {
+			increment = 1;
+		}
 		//reset game divisors
 		g_canistersCollected = 0;
 		g_gameStarting = true;
-		g_gameLevel++;
+		g_gameLevel += increment;
 		g_enviroment = g_gameLevel;
 		g_fuel = g_maxFuel;
 		g_gameSpeed = g_minSpeed;
