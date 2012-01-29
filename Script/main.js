@@ -232,23 +232,23 @@ function Game() {
 				},
 				{	
 					fuelLossTime: 7500,
-					speedGainTime: 18000,
-					minSpeed: 1,
-					fuelsToGoal: 2,
+					speedGainTime: 16000,
+					minSpeed: 1.5,
+					fuelsToGoal: 3,
 					levelObjects: [1,1,1,2,2,2,3,0,3,4,4,4,5,0,5,6,0,0,7,7,7,8,8,8,0]
 				},
 				{	
 					fuelLossTime: 6000,
-					speedGainTime: 15000,
-					minSpeed: 1,
+					speedGainTime: 11000,
+					minSpeed: 1.75,
 					fuelsToGoal: 3,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,0,6,6,7,7,7,8,8,0,0]
 				},
 				{	
 					fuelLossTime: 5000,
-					speedGainTime: 10000,
-					minSpeed: 1,
-					fuelsToGoal: 3,
+					speedGainTime: 8000,
+					minSpeed: 2.25,
+					fuelsToGoal: 5,
 					levelObjects: [1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,0,6,6,7,7,7,8,8,8,0]
 				}
 			];
