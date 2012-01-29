@@ -417,7 +417,7 @@ function TileGrid() {
 		g_gameRunning = false;	
 		car.moving = false;
 		g_SoundManager["crash"].play();
-		g_SoundManager["music"].pause();
+		//g_SoundManager["music"].pause();
 		
 		g_showGameOver = true;
 	}
@@ -509,6 +509,7 @@ function Canister(tileGrid) {
 	}
 	
 	this.pickCanister = function() {
+		g_SoundManager["refuel"].play();
 		g_canistersCollected++;
 		g_fuel += 50;
 		g_fuel = Math.min(g_fuel, g_maxFuel);

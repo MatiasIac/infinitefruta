@@ -101,7 +101,8 @@ function Game() {
 		/*Modo de uso en los lugares de los sonidos: g_SoundManager["credits"].play();*/
 		new SManager().startupSoundManager(
             [{ name: 'crash', src: 'resources/Sounds/crash.ogg' },
-             { name: 'music', src: 'resources/Sounds/gameMusic.mp3' }         
+             { name: 'music', src: 'resources/Sounds/gameMusic.mp3' },
+			 { name: 'refuel', src: 'resources/Sounds/fuelFilling.ogg' } 			 
             ]);
 		
 		loader.start();
