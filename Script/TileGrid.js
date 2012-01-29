@@ -220,27 +220,21 @@ function TileGrid() {
 			}
 		}
 		
-		/*if (g_goalAreaEnabled) {
-			context.drawImage(g_game.resources.exit,
-				136, 110, 61, 55,
-				120, 295, 61, 55);
-		} else {
-			context.drawImage(g_game.resources.exit,
-				0, 12, 95, 68,
-				60, 290, 95, 68);
-		}*/
-		
 		canister.draw(context);
 		speedItem.draw(context);
 		if (car.visible) {
 			car.draw(context);
 		}
-		
-		/*if (g_goalAreaEnabled) {	
-			context.drawImage(g_game.resources.exit,
-				0, 103, 95, 68,
-				60, 290, 95, 68);
-		}*/
+				
+		if (g_goalAreaEnabled) {
+			context.drawImage(g_game.resources.barreras,
+				13, 16, 31, 55,
+				150, 235, 31, 55);
+		} else {
+			context.drawImage(g_game.resources.barreras,
+				61, 16, 31, 146,
+				150, 235, 31, 146);
+		}
 		
 		if (draggingObject != null) {
 			context.save();

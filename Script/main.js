@@ -88,6 +88,7 @@ function Game() {
 			pointer: loader.addImage('resources/pointer.png'),
 			exit: loader.addImage('resources/camionboxes.png'),
 			meters: loader.addImage('resources/medidores.png'),
+			barreras: loader.addImage('resources/barreras.png')
 		};
 
 		/*Modo de uso en los lugares de los sonidos: g_SoundManager["credits"].play();*/
