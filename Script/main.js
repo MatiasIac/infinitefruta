@@ -83,28 +83,28 @@ function Game() {
 		}); 
 	
 		self.resources = {
-			splash: loader.addImage('resources/portada-final.png'),
-			car: loader.addImage('resources/cars.png'),
-			tileSheet: loader.addImage('resources/ruta85.png'),
-			fondomenu: loader.addImage('resources/fondomenu2.png'),
-			background: loader.addImage('resources/fondomain.png'),
-			common: loader.addImage('resources/luces.png'),
-			pointer: loader.addImage('resources/pointer.png'),
-			exit: loader.addImage('resources/camionboxes.png'),
-			meters: loader.addImage('resources/medidores.png'),
-			barreras: loader.addImage('resources/barreras.png'),
-			gas: loader.addImage('resources/gas.png'),
-			slow: loader.addImage('resources/slow.png'),
-			gasgray: loader.addImage('resources/grasgray.png')
+			splash: loader.addImage('Resources/portada-final.png'),
+			car: loader.addImage('Resources/cars.png'),
+			tileSheet: loader.addImage('Resources/ruta85.png'),
+			fondomenu: loader.addImage('Resources/fondomenu2.png'),
+			background: loader.addImage('Resources/fondomain.png'),
+			common: loader.addImage('Resources/luces.png'),
+			pointer: loader.addImage('Resources/pointer.png'),
+			exit: loader.addImage('Resources/camionboxes.png'),
+			meters: loader.addImage('Resources/medidores.png'),
+			barreras: loader.addImage('Resources/barreras.png'),
+			gas: loader.addImage('Resources/gas.png'),
+			slow: loader.addImage('Resources/slow.png'),
+			gasgray: loader.addImage('Resources/grasgray.png')
 		};
 
 		/*Modo de uso en los lugares de los sonidos: g_SoundManager["credits"].play();*/
 		new SManager().startupSoundManager(
-            [{ name: 'crash', src: 'resources/Sounds/crash.ogg' },
-             { name: 'music', src: 'resources/Sounds/gameMusic.mp3' },
-			 { name: 'refuel', src: 'resources/Sounds/fuelFilling.ogg' },
-			 { name: 'posOK', src: 'resources/Sounds/positionOk.ogg' },  
-			 { name: 'posWrong', src: 'resources/Sounds/positionWrong.ogg' }			 
+            [{ name: 'crash', src: 'Resources/Sounds/crash.ogg' },
+             { name: 'music', src: 'Resources/Sounds/gameMusic.mp3' },
+			 { name: 'refuel', src: 'Resources/Sounds/fuelFilling.ogg' },
+			 { name: 'posOK', src: 'Resources/Sounds/positionOk.ogg' },  
+			 { name: 'posWrong', src: 'Resources/Sounds/positionWrong.ogg' }			 
             ]);
 		
 		loader.start();

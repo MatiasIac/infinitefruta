@@ -77,8 +77,8 @@ function Background() {
 			}
 		}
 		
-		context.fillText("Speed",5, 280);
-		context.fillText(g_gameSpeed, 5, 300);
+/* 		context.fillText("Speed",5, 280);
+		context.fillText(g_gameSpeed, 5, 300); */
 		
 		context.save();
 			var textToShow = g_score + " KM";
