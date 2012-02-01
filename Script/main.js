@@ -83,14 +83,14 @@ function Game() {
 		}); 
 	
 		self.resources = {
-			splash: loader.addImage('Resources/portada-final.png'),
+			//splash: loader.addImage('Resources/portada-final.png'),
 			car: loader.addImage('Resources/cars.png'),
 			tileSheet: loader.addImage('Resources/ruta85.png'),
 			fondomenu: loader.addImage('Resources/fondomenu2.png'),
 			background: loader.addImage('Resources/fondomain.png'),
-			common: loader.addImage('Resources/luces.png'),
+			//common: loader.addImage('Resources/luces.png'),
 			pointer: loader.addImage('Resources/pointer.png'),
-			exit: loader.addImage('Resources/camionboxes.png'),
+			//exit: loader.addImage('Resources/camionboxes.png'),
 			meters: loader.addImage('Resources/medidores.png'),
 			barreras: loader.addImage('Resources/barreras.png'),
 			gas: loader.addImage('Resources/gas.png'),
@@ -99,14 +99,14 @@ function Game() {
 		};
 
 		/*Modo de uso en los lugares de los sonidos: g_SoundManager["credits"].play();*/
-		new SManager().startupSoundManager(
+		soundManager = new SManager().startupSoundManager(
             [{ name: 'crash', src: 'Resources/Sounds/crash.ogg' },
              { name: 'music', src: 'Resources/Sounds/gameMusic.mp3' },
 			 { name: 'refuel', src: 'Resources/Sounds/fuelFilling.ogg' },
 			 { name: 'posOK', src: 'Resources/Sounds/positionOk.ogg' },  
 			 { name: 'posWrong', src: 'Resources/Sounds/positionWrong.ogg' }			 
             ]);
-		
+		soundManager.music.loop = "loop";
 		loader.start();
 	}
 	
